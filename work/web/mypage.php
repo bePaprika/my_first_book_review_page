@@ -7,6 +7,8 @@
 <!-- ここからbody -->
 
 <!-- POST送信 -->
+
+
 <form action="" method="post">
   メールアドレス：<input type="text" name="mail" placeholder=""><br>
   パスワード　　：<input type="text" name="pass" placeholder="">

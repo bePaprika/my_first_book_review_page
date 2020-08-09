@@ -2,8 +2,8 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title><?= h($title);?>TADABOOK</title>
-  <link rel="icon" href="favicon.ico">
+  <title><?= h($title);?>TADABON</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
 </head>
 
 <body>

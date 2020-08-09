@@ -1,5 +1,5 @@
 <?php
-  $title = "ログイン画面 - ";
+  $title = "ログイン - ";
   require("../app/function.php");
   include("../app/_parts/_header.php")
 ?>
