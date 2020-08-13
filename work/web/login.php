@@ -8,8 +8,8 @@
 
 <!-- POST送信 -->
 <form action="" method="post">
-  メールアドレス：<input type="text" name="mail" placeholder=""><br>
-  パスワード　　：<input type="text" name="pass" placeholder="">
+  <label>メールアドレス：<input type="text" name="mail"></label><br>
+  <label>パスワード　　：<input type="password" name="pass"></label>
   <button>送信</button>
   <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">
 </form>
@@ -24,7 +24,7 @@
 
 ?>
 
-<!-- TOPへ戻る -->
+<!-- 掲示ページへ戻る -->
 <a href="index.php">戻る</a>
 
 

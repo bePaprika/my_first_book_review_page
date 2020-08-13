@@ -6,15 +6,15 @@
 
 <!-- ここからbody -->
 
-<!-- POST送信 -->
 
 
-<form action="" method="post">
-  メールアドレス：<input type="text" name="mail" placeholder=""><br>
-  パスワード　　：<input type="text" name="pass" placeholder="">
-  <button>送信</button>
-  <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">
-</form>
+<nav>
+<ul>
+  <li><a href="newpost.php">新しい本を読み始める</a></li>
+  <li><a href="newpost.php">本の続きを記録する</a></li>
+
+</ul>
+</nav>
 
 
 <!-- ここまでbody -->
