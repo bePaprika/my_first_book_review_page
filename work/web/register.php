@@ -8,9 +8,9 @@
 
 <!-- POST送信 -->
 <form action="" method="post">
-  メールアドレス：<input type="text" name="mail" placeholder=""><br>
-  ユーザーネーム：<input type="text" name="name" placeholder=""><br>
-  パスワード　　：<input type="text" name="pass" placeholder="">
+  ユーザーネーム：<input type="text" name="name" placeholder="この名前は全体に公開されます"><br>
+  メールアドレス：<input type="text" name="mail" placeholder="登録用メールが送信されます"><br>
+  パスワード　　：<input type="text" name="pass" placeholder="よく使うパスワードは避けてください">
   <button>送信</button>
   <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">
 </form>

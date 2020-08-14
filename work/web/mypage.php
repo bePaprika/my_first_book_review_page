@@ -6,15 +6,11 @@
 
 <!-- ここからbody -->
 
-
-
-<nav>
+<h1><a href="newpost.php">新しい本を読み始める</a>
+<h1>本の続きを記録する<h1>
 <ul>
-  <li><a href="newpost.php">新しい本を読み始める</a></li>
-  <li><a href="newpost.php">本の続きを記録する</a></li>
-
+  <li>データベース内の本のタイトル</li>
 </ul>
-</nav>
 
 
 <!-- ここまでbody -->
