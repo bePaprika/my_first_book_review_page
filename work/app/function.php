@@ -1,6 +1,9 @@
 <?php
     //sessionを使うための関数
     session_start();
+
+    //クリックジャッキング対策
+    header('X-FRAME-OPTIONS: SAMEORIGIN');
     
     //変数をhtmlspecialcharsに変換する関数
     function h($str)
@@ -17,14 +20,12 @@
         }
     }
 
+    //tokenが一致しているか確認する関数
     function validateToken()
     {
-        if (
-            empty($_SESSION['token'])||
-            $_SESSION['token'] !== filter_input(INPUT_POST, 'token')
-            )
+        if (empty($_SESSION['token']) || $_SESSION['token'] !== filter_input(INPUT_POST, 'token')) 
             {
-                exit('Invalid post request');
+                exit('不正アクセスの可能性あり');
             }
     }
 

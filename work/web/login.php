@@ -7,7 +7,7 @@
 <!-- ここからbody -->
 
 <!-- POST送信 -->
-<form action="" method="post">
+<form action="login2.php" method="post">
   <label>メールアドレス：<input type="text" name="mail"></label><br>
   <label>パスワード　　：<input type="password" name="pass"></label>
   <button>送信</button>
@@ -16,6 +16,8 @@
 
 <?php
 // POST受信
+$mail = $_POST["mail"];
+$pass = $_POST["pass"];
 
 // メールとパスワードが一致しているか確認
 
