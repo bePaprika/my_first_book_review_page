@@ -14,14 +14,11 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
   $mead = $_POST["mead"];
   // $pass = $_POST["pass"];
   
-  
+  if($mead === ""){header('Location: https://tb-220261.tech-base.net/TADABON/work/web/register.php');}
+
   //エラーメッセージの合成
   $error_message = "";
-  if($name===""){$error_message = $error_message."「ユーザー名」";}
-  if($mead===""){$error_message = $error_message."「メールアドレス」";}
-  if($pass===""){$error_message = $error_message."「パスワード」";}
-  $error_message = $error_message."を入力する必要があります<br>";
-
+  
   //メアドの形式チェック
   if(!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $mead)){
     $error_message = $error_message."メールアドレスの形式が正しくありません。<br>";
@@ -29,9 +26,9 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
   }
   
   //メアドの重複確認
-  $sql = "SELECT id FROM Accounts WHERE mail=:mail";
+  $sql = "SELECT id FROM Accounts WHERE mead=:mead";
   $stm = $pdo->prepare($sql);
-  $stm->bindValue(':mail', $mail, PDO::PARAM_STR);
+  $stm->bindValue(':mead', $mead, PDO::PARAM_STR);
   $stm->execute();
   $result = $stm->fetch(PDO::FETCH_ASSOC);
   
@@ -39,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
     $error_message = $error_message. "このメールアドレスはすでに利用されております。<br>";
   }
   
-  if($name!="" && $mead!="" && $pass!=""){
+  if($error_message===""){
     require("../../phpmailer/send.php");
   }
   else{
