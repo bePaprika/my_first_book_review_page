@@ -1,4 +1,5 @@
 <?php
+require("../../sec_info.php");
 $sql = "CREATE TABLE IF NOT EXISTS Data"
 ." ("
 . "name char(128)," //ユーザー名

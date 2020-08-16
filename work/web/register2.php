@@ -10,9 +10,9 @@
 if ($_SERVER['REQUEST_METHOD']==='POST'){
   validateToken();
   // POST受信
-  $name = $_POST["name"];
+  // $name = $_POST["name"];
   $mead = $_POST["mead"];
-  $pass = $_POST["pass"];
+  // $pass = $_POST["pass"];
   
   
   //エラーメッセージの合成
@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
   $error_message = $error_message."を入力する必要があります<br>";
 
   //メアドの形式チェック
-  if(!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $mail)){
+  if(!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $mead)){
     $error_message = $error_message."メールアドレスの形式が正しくありません。<br>";
     $mead = "";
   }

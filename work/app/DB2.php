@@ -1,9 +1,10 @@
 <?php
+require("../../sec_info.php");
 $sql = "CREATE TABLE IF NOT EXISTS Accounts"
 ." ("
 . "id INT AUTO_INCREMENT PRIMARY KEY," //ID
 . "name char(128)," //ユーザー名
-. "mail char(128)," //メールアドレス
+. "mead char(128)," //メールアドレス
 . "pass char(128)," //パスワード
 . "status INT," //1.本会員 2.仮会員
 . "created_at DATETIME," //登録日
