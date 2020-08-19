@@ -2,7 +2,9 @@
   $title = "遷移画面 - ";
   require("../app/function.php");
   require("../../sec_info.php");
-  include("../app/_parts/_header.php")
+  include("../app/_parts/_header.php");
+
+  $errors = array();
 ?>
 
 <?php
@@ -16,12 +18,11 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
   
   if($mead === ""){header('Location: https://tb-220261.tech-base.net/TADABON/work/web/register.php');}
 
-  //エラーメッセージの合成
-  $error_message = "";
   
+
   //メアドの形式チェック
   if(!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $mead)){
-    $error_message = $error_message."メールアドレスの形式が正しくありません。<br>";
+    $errors['mail_char'] = "メールアドレスの形式が正しくありません。";
     $mead = "";
   }
   
@@ -33,15 +34,27 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
   $result = $stm->fetch(PDO::FETCH_ASSOC);
   
   if(isset($result["id"])){
-    $error_message = $error_message. "このメールアドレスはすでに利用されております。<br>";
+    $errors['mail_dupli'] = "このメールアドレスはすでに利用されております。";
+  }
+
+  //メアドの重複確認
+  $sql = "SELECT id FROM Pre WHERE mead=:mead";
+  $stm = $pdo->prepare($sql);
+  $stm->bindValue(':mead', $mead, PDO::PARAM_STR);
+  $stm->execute();
+  $result = $stm->fetch(PDO::FETCH_ASSOC);
+  
+  if(isset($result["id"])){
+    $errors['click_twice'] = "メールボックスをご確認ください。";
   }
   
-  if($error_message===""){
+  if(count($errors) === 0){
     require("../../phpmailer/pre_mail.php");
   }
   else{
-    echo $error_message;
-    //header('Location: register.php');
+    foreach($errors as $error){
+        echo $error."<br>";
+    }
   }
 
   $_SESSION = array();

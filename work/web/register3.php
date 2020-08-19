@@ -12,7 +12,7 @@
 <?php
 
   if(empty($_GET)) {
-    header("Location: index.php");
+    header("Location: https://tb-220261.tech-base.net/TADABON/work/web/register.php");
     exit();
   }
 
@@ -59,7 +59,7 @@
   //確認
   if(isset($_POST['btn_confirm'])){
     if(empty($_POST)) {
-      header("Location: index.php");
+      header("Location: https://tb-220261.tech-base.net/TADABON/work/web/register.php");
       exit();
     }else{
       //POSTされたデータを各変数に入れる
