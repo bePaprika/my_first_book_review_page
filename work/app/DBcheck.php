@@ -11,22 +11,22 @@
 	echo "<hr>";
 	
   //Pre登録者一覧
-  echo "Pre登録者一覧";
+  echo "Pre登録者一覧<br>";
 	$sql = 'SELECT * FROM Pre';
 	$stmt = $pdo->query($sql);
 	$results = $stmt->fetchAll();
 	foreach ($results as $row){
-    echo $row['id'].',';
-    echo $row['urltoken'].',';
-    echo $row['mead'].',';
-    echo $row['register_at'].',';
-		echo $row['flag'].'<br>';
+    echo $row['id'].' , ';
+    echo $row['mead'].' , ';
+    echo $row['register_at'].' , ';
+    echo $row['flag'].' , ';
+    echo $row['urltoken'].'<br>';
 	}
   echo "<hr>";
 
   //Accounts登録者一覧
-  echo "Accounts登録者一覧";
-	$sql = 'SELECT * FROM Pre';
+  echo "Accounts登録者一覧<br>";
+	$sql = 'SELECT * FROM Accounts';
 	$stmt = $pdo->query($sql);
 	$results = $stmt->fetchAll();
 	foreach ($results as $row){

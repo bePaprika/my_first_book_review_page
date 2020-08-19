@@ -1,9 +1,6 @@
 <?php
 require("../../sec_info.php");
 
-$sql = 'DROP TABLE tbtest';
-$stmt = $pdo->query($sql);
-
 $sql = 'DROP TABLE Pre';
 $stmt = $pdo->query($sql);
 

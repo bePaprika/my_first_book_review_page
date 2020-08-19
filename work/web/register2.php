@@ -37,13 +37,14 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
   }
   
   if($error_message===""){
-    require("../../phpmailer/send.php");
+    require("../../phpmailer/pre_mail.php");
   }
   else{
     echo $error_message;
     //header('Location: register.php');
   }
 
+  $_SESSION = array();
 }
 else{
   echo "不正な画面遷移が行われました";

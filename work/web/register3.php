@@ -59,7 +59,7 @@
   //確認
   if(isset($_POST['btn_confirm'])){
     if(empty($_POST)) {
-      header("Location: registration_mail.php");
+      header("Location: index.php");
       exit();
     }else{
       //POSTされたデータを各変数に入れる
@@ -79,12 +79,16 @@
       endif;
   
       if ($name === ""):
-        $errors['name'] = "氏名が入力されていません。";
+        $errors['name'] = "ユーザーネームが入力されていません。";
       endif;
       
     }
     
   }
+  // if($_SESSION['pass']==="" || $_SESSION['name']==="" || $_SESSION['mead']===""){
+  //   echo "不正な遷移が行われましたタブを終了してやり直してください<br>";
+  //   exit();
+  // }
 
   //登録
   if(isset($_POST['btn_submit'])){
@@ -120,7 +124,7 @@
       }
 
       //セッションを破棄する
-      session_destroy();
+      //session_destroy();
     }
     
     catch (PDOException $e){
@@ -136,7 +140,7 @@
 
 <!-- page_3 完了画面-->
 <?php if(isset($_POST['btn_submit']) && count($errors) === 0): ?>
-本登録されました。
+header('Location: https://tb-220261.tech-base.net/TADABON/work/web/succeed.php');
 
 <!-- page_2 確認画面-->
 <?php elseif (isset($_POST['btn_confirm']) && count($errors) === 0): ?>
