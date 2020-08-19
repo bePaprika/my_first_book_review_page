@@ -25,7 +25,8 @@
     {
         if (empty($_SESSION['token']) || $_SESSION['token'] !== filter_input(INPUT_POST, 'token')) 
             {
-                exit('不正アクセスの可能性あり');
+                header('Location: https://tb-220261.tech-base.net/TADABON/work/web/index.php');
+                // exit('不正な画面遷移が行われました');
             }
     }
 

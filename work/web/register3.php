@@ -140,7 +140,7 @@
 
 <!-- page_3 完了画面-->
 <?php if(isset($_POST['btn_submit']) && count($errors) === 0): ?>
-header('Location: https://tb-220261.tech-base.net/TADABON/work/web/succeed.php');
+<?php header('Location: https://tb-220261.tech-base.net/TADABON/work/web/succeed.php'); ?>
 
 <!-- page_2 確認画面-->
 <?php elseif (isset($_POST['btn_confirm']) && count($errors) === 0): ?>
