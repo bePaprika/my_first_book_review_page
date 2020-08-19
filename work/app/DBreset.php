@@ -1,6 +1,34 @@
 <?php
 require("../../sec_info.php");
 
+//Pre登録者一覧
+echo "Pre登録者一覧<br>";
+$sql = 'SELECT * FROM Pre';
+$stmt = $pdo->query($sql);
+$results = $stmt->fetchAll();
+foreach ($results as $row){
+  echo $row['id'].' , ';
+  echo $row['mead'].' , ';
+  echo $row['register_at'].' , ';
+  echo $row['flag'].' , ';
+  echo $row['urltoken'].'<br>';
+}
+echo "<hr>";
+
+//Accounts登録者一覧
+echo "Accounts登録者一覧<br>";
+$sql = 'SELECT * FROM Accounts';
+$stmt = $pdo->query($sql);
+$results = $stmt->fetchAll();
+foreach ($results as $row){
+  echo $row['id'].' , ';
+  echo $row['name'].' , ';
+  echo $row['mead'].' , ';
+  echo substr($row['pass'],0,10).' , ';
+  echo $row['status'].'<br>';
+}
+echo "<hr>";
+
 $sql = 'DROP TABLE Pre';
 $stmt = $pdo->query($sql);
 
@@ -29,4 +57,7 @@ $sql = "CREATE TABLE IF NOT EXISTS Accounts"
 . "intr TEXT"  //自己紹介
 .");";
 $stmt = $pdo->query($sql);
+
+echo "<hr>";
+echo "これらのDBを初期化しました<br>";
 ?>

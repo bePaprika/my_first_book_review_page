@@ -9,9 +9,12 @@
 
 <!-- ここからbody -->
 
+<h1>仮登録画面</h1>
+<p>登録用のメールアドレスを入力してください</p>
+
 <!-- POST送信 -->
 <form action="register2.php" method="post">
-  メールアドレス：<input type="text" name="mead" placeholder=""><br>
+  <p>メールアドレス：<input type="text" name="mead" placeholder=""></p>
   <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">
   <button>送信</button>
 </form>
@@ -19,7 +22,12 @@
 
 
 <!-- TOPページへ戻る -->
-<a href="index.php">掲示板ページへ戻る</a>
+<nav>
+  <ul>
+    <li><a href="register.php">仮登録画面へ戻る</a></li>
+    <li><a href="index.php">掲示ページへ戻る</a></li>
+  </ul>
+</nav>
 
 <!-- ここまでbody -->
 

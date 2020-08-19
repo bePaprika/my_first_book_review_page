@@ -9,10 +9,13 @@
   $errors = array();
 ?>
 
+
 <?php
 
+  
+
   if(empty($_GET)) {
-    header("Location: https://tb-220261.tech-base.net/TADABON/work/web/register.php");
+    header("Location: https://tb-220261.tech-base.net/TADABON/work/web/index.php");
     exit();
   }
 
@@ -43,7 +46,7 @@
           $_SESSION['mead'] = $mead;
         }
         else{
-          $errors['urltoken_timeover'] = "このURLはご利用できません。有効期限が過ぎたかURLが間違えている可能性がございます。もう一度登録をやりなおして下さい。";
+          $errors['urltoken_timeover'] = "このURLはご利用できません。有効期限が過ぎたかURLが間違えている可能性がございます。";
         }
         //データベース接続切断
         $stm = null;
@@ -59,9 +62,10 @@
   //確認
   if(isset($_POST['btn_confirm'])){
     if(empty($_POST)) {
-      header("Location: https://tb-220261.tech-base.net/TADABON/work/web/register.php");
+      header('Location: https://tb-220261.tech-base.net/TADABON/work/web/register3.php'."?urltoken=".print $urltoken);
       exit();
-    }else{
+    }
+    else{
       //POSTされたデータを各変数に入れる
       $name = isset($_POST['name']) ? $_POST['name'] : NULL;
       $pass = isset($_POST['pass']) ? $_POST['pass'] : NULL;
@@ -86,12 +90,11 @@
     
   }
   // if($_SESSION['pass']==="" || $_SESSION['name']==="" || $_SESSION['mead']===""){
-  //   echo "不正な遷移が行われましたタブを終了してやり直してください<br>";
-  //   exit();
+  //   echo "不正な遷移が行われましたタブを終了してやり直してください<br>";exit();
   // }
 
   //登録
-  if(isset($_POST['btn_submit'])){
+  if(isset($_POST['btn_submit']) && count($errors) === 0){
     //パスワードのハッシュ化
     $password_hash =  password_hash($_SESSION['pass'], PASSWORD_DEFAULT);
   
@@ -124,7 +127,7 @@
       }
 
       //セッションを破棄する
-      //session_destroy();
+      session_destroy();
     }
     
     catch (PDOException $e){
@@ -140,7 +143,8 @@
 
 <!-- page_3 完了画面-->
 <?php if(isset($_POST['btn_submit']) && count($errors) === 0): ?>
-<?php header('Location: https://tb-220261.tech-base.net/TADABON/work/web/succeed.php'); ?>
+  <h1>TADABON本登録ありがとうございます!</h1>
+  <!-- header('Location: https://tb-220261.tech-base.net/TADABON/work/web/register4.php'."?urltoken=".print $urltoken);  -->
 
 <!-- page_2 確認画面-->
 <?php elseif (isset($_POST['btn_confirm']) && count($errors) === 0): ?>

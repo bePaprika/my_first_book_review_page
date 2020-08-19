@@ -6,7 +6,7 @@
 
   $errors = array();
 ?>
-
+<h1>仮登録画面</h1>
 <?php
 
 if ($_SERVER['REQUEST_METHOD']==='POST'){
@@ -36,17 +36,19 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
   if(isset($result["id"])){
     $errors['mail_dupli'] = "このメールアドレスはすでに利用されております。";
   }
-
-  //メアドの重複確認
-  $sql = "SELECT id FROM Pre WHERE mead=:mead";
-  $stm = $pdo->prepare($sql);
-  $stm->bindValue(':mead', $mead, PDO::PARAM_STR);
-  $stm->execute();
-  $result = $stm->fetch(PDO::FETCH_ASSOC);
-  
-  if(isset($result["id"])){
-    $errors['click_twice'] = "メールボックスをご確認ください。";
+  else{
+    //既に仮登録メールを送っている
+    $sql = "SELECT id FROM Pre WHERE mead=:mead";
+    $stm = $pdo->prepare($sql);
+    $stm->bindValue(':mead', $mead, PDO::PARAM_STR);
+    $stm->execute();
+    $result = $stm->fetch(PDO::FETCH_ASSOC);
+    
+    if(isset($result["id"])){
+      $errors['click_twice'] = "メールボックスをご確認ください。";
+    }
   }
+
   
   if(count($errors) === 0){
     require("../../phpmailer/pre_mail.php");
@@ -60,14 +62,15 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
   $_SESSION = array();
 }
 else{
-  echo "不正な画面遷移が行われました";
+  //不正な遷移はとりあえずindexに飛ばす
+  header("Location: https://tb-220261.tech-base.net/TADABON/work/web/index.php");
 }
 ?>
 
 
 <nav>
   <ul>
-    <li><a href="register.php">登録画面へ戻る</a></li>
+    <li><a href="register.php">仮登録画面へ戻る</a></li>
     <li><a href="index.php">掲示ページへ戻る</a></li>
   </ul>
 </nav>
