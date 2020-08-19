@@ -93,7 +93,7 @@
   
     //ここでデータベースに登録する
     try{
-      $sql = "INSERT INTO Accounts (name,mead,pass,status,created_at,updated_at) VALUES (:name,:mead,:password_hash,,1,now(),now())";
+      $sql = "INSERT INTO Accounts (name,mead,pass,status,created_at,updated_at) VALUES (:name,:mead,:password_hash,1,now(),now())";
       $stm = $pdo->prepare($sql);
       $stm->bindValue(':name', $_SESSION['name'], PDO::PARAM_STR);
       $stm->bindValue(':mead', $_SESSION['mead'], PDO::PARAM_STR);
