@@ -29,7 +29,7 @@
       try{
         // DB接続	
         //flagが0の未登録者 or 仮登録日から24時間以内
-        $sql = "SELECT mead FROM Pre WHERE urltoken=(:urltoken) AND flag =0 AND date > now() - interval 24 hour";
+        $sql = "SELECT mead FROM Pre WHERE urltoken=(:urltoken) AND flag =0 AND register_at > now() - interval 24 hour";
         $stm = $pdo->prepare($sql);
         $stm->bindValue(':urltoken', $urltoken, PDO::PARAM_STR);
         $stm->execute();
@@ -64,18 +64,18 @@
     }else{
       //POSTされたデータを各変数に入れる
       $name = isset($_POST['name']) ? $_POST['name'] : NULL;
-      $password = isset($_POST['password']) ? $_POST['password'] : NULL;
+      $pass = isset($_POST['pass']) ? $_POST['pass'] : NULL;
       
       //セッションに登録
       $_SESSION['name'] = $name;
-      $_SESSION['password'] = $password;
+      $_SESSION['pass'] = $pass;
   
       //アカウント入力判定
       //パスワード入力判定
-      if ($password === ""):
-        $errors['password'] = "パスワードが入力されていません。";
+      if ($pass === ""):
+        $errors['pass'] = "パスワードが入力されていません。";
       else:
-        $password_hide = str_repeat('*', strlen($password));
+        $password_hide = str_repeat('*', strlen($pass));
       endif;
   
       if ($name === ""):
@@ -89,7 +89,7 @@
   //登録
   if(isset($_POST['btn_submit'])){
     //パスワードのハッシュ化
-    $password_hash =  password_hash($_SESSION['password'], PASSWORD_DEFAULT);
+    $password_hash =  password_hash($_SESSION['pass'], PASSWORD_DEFAULT);
   
     //ここでデータベースに登録する
     try{
@@ -161,7 +161,7 @@
    <?php endif; ?>
 		<?php if(!isset($errors['urltoken_timeover'])): ?>
 			<form action="<?php echo $_SERVER['SCRIPT_NAME'] ?>?urltoken=<?php print $urltoken; ?>" method="post">
-				<p>メールアドレス：<?=htmlspecialchars($mail, ENT_QUOTES, 'UTF-8')?></p>
+				<p>メールアドレス：<?=htmlspecialchars($mead, ENT_QUOTES, 'UTF-8')?></p>
 				<p>パスワード：<input type="password" name="pass"></p>
 				<p>ユーザーネーム：<input type="text" name="name" value="<?php if( !empty($_SESSION['name']) ){ echo $_SESSION['name']; } ?>"></p>
 				<input type="hidden" name="token" value="<?=$token?>">
