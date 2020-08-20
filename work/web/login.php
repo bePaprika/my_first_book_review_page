@@ -2,35 +2,88 @@
   $title = "ログイン - ";
   require("../app/function.php");
   require("../../sec_info.php");
-  include("../app/_parts/_header.php")
+  include("../app/_parts/_header.php");
+
+  $errors = array();
 ?>
 
 <!-- ここからbody -->
-
-<!-- POST送信 -->
-<form action="login2.php" method="post">
-  <label>メールアドレス：<input type="text" name="mail"></label><br>
-  <label>パスワード　　：<input type="password" name="pass"></label>
-  <button>送信</button>
-  <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">
-</form>
-
 <?php
-// POST受信
-$mail = $_POST["mail"];
-$pass = $_POST["pass"];
+  if (isset($_POST['login'])) {
 
-// メールとパスワードが一致しているか確認
+    //エラー文
+    if (empty($_POST['mead'])) {
+        $errors['mead'] = 'メールアドレスが未入力です。';
+    } 
+    if (empty($_POST['pass'])) {
+        $errors['pass'] = 'パスワードが未入力です。';
+    }
+    //メアドもパスもある時
+    if (!empty($_POST['mead']) && !empty($_POST['pass'])) {
+      $mail = $_POST['mead'];
+      
+      try {
+        //入力されたメアドからアカウントを特定
+        $pdo->beginTransaction();
+        $sql = "SELECT * FROM Accounts WHERE mead = :mead"; 
+        $stm = $pdo->prepare($sql);
+        $stm->bindValue(':mead', $mead, PDO::PARAM_STR);
+        $stm->execute();
 
-// 一致の場合MyPageへ遷移
-// 不一致の場合ログイン画面へ
+        $pass = $_POST['pass'];
+        $result = $stm->fetch(PDO::FETCH_ASSOC);
+
+        if (password_verify($pass, $result['pass'])) {    
+          $_SESSION['id'] = $result["id"];
+          $_SESSION['mead'] = $mead;
+          $_SESSION['message'] = 'ログインしました。';
+          header('Location: https://tb-220261.tech-base.net/TADABON/work/web/mypage.php');
+          exit();
+        } 
+        else {
+          $errors['login'] = 'メールアドレスまたはパスワードに誤りがあります。';
+        }
+      } 
+      catch (PDOException $e) {
+        echo $e->getMessage();
+      }
+    }
+  }
 
 ?>
 
+<h1>ログイン画面</h1>
+
+<div class="form">
+<form id="loginForm" name="loginForm" action="" method="POST">
+
+<?php
+  //エラーがある場合ここでメッセージを表示する
+  foreach($errors as $error){
+    print "<p class='error'>";
+    print $error."<br>";
+    print "</p>";
+  }
+?>
+
+<div>
+  <label for="mead">メールアドレス
+  <input type="text" id="mead" name="mead" placeholder="メールアドレスを入力" value="<?php if (!empty($_POST["mail"])) {echo htmlspecialchars($_POST["mail"], ENT_QUOTES);} ?>">
+  </label>
+</div>
+
+<div>
+  <label for="pass">パスワード
+  <input type="password" id="pass" name="pass" value="" placeholder="パスワードを入力">
+  </label>
+</div>
+
+<input type="submit" id="login" name="login" value="ログイン">
+</form>
+</div>
+
 <!-- 掲示ページへ戻る -->
 <a href="index.php">戻る</a>
-
-
 
 <!-- ここまでbody -->
 

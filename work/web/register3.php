@@ -180,7 +180,7 @@
 
 <nav>
   <ul>
-    <li><a href="register.php">登録画面へ戻る</a></li>
+    <!-- <li><a href="register.php">登録画面へ戻る</a></li> -->
     <li><a href="index.php">掲示ページへ戻る</a></li>
   </ul>
 </nav>
