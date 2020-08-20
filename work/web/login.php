@@ -20,7 +20,7 @@
     }
     //メアドもパスもある時
     if (!empty($_POST['mead']) && !empty($_POST['pass'])) {
-      $mail = $_POST['mead'];
+      $mead = $_POST['mead'];
       
       try {
         //入力されたメアドからアカウントを特定
@@ -68,7 +68,7 @@
 
 <div>
   <label for="mead">メールアドレス
-  <input type="text" id="mead" name="mead" placeholder="メールアドレスを入力" value="<?php if (!empty($_POST["mail"])) {echo htmlspecialchars($_POST["mail"], ENT_QUOTES);} ?>">
+  <input type="text" id="mead" name="mead" placeholder="メールアドレスを入力" value="<?php if (!empty($_POST["mead"])) {echo htmlspecialchars($_POST["mead"], ENT_QUOTES);} ?>">
   </label>
 </div>
 

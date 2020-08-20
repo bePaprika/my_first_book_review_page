@@ -42,7 +42,7 @@ catch (PDOException $e){
 <div>
   <div>
     <p>こんにちは<?php print $result["name"]; ?>さん</p>
-    <!-- <p>メールアドレス：<?php print $result["mail"]; ?></p> -->
+    <!-- <p>メールアドレス：<?php print $result["mead"]; ?></p> -->
   </div>
 </div>
 
