@@ -29,14 +29,15 @@ $stmt = $pdo->query($sql);
 //投稿データベース
 $sql = "CREATE TABLE IF NOT EXISTS Data"
 ." ("
-. "name char(128)," //ユーザー名
+. "id INT AUTO_INCREMENT PRIMARY KEY," //ID
 . "title TEXT,"   //書籍名
-. "content TEXT," //この本に期待する内容
+. "first INT," //初投稿かどうか 1:初投稿
 . "comment TEXT,"  //書籍へのコメント
-. "date DATETIME," //書き込み日時
-. "ongoing INT,"  //読書中ダミー
-. "finished INT," //読了ダミー
-. "frustrat INT" //挫折ダミー
+. "name char(128)," //ユーザー名
+. "post_at DATETIME," //書き込み日時
+. "fin INT,"  //読了ダミー　 1:読了
+. "dis INT,"  //挫折ダミー　 1:挫折
+. "public INT" //公開ダミー  1:公開
 .");";
 $stmt = $pdo->query($sql);
 ?>

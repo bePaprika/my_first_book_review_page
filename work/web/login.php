@@ -8,7 +8,16 @@
 ?>
 
 <!-- ここからbody -->
+
+
 <?php
+  // ログインされていない場合ログイン画面へ飛ばす
+  if (isset($_SESSION["id"])) {
+    header("Location: https://tb-220261.tech-base.net/TADABON/work/web/mypage.php");
+    exit;
+  }
+
+
   if (isset($_POST['login'])) {
 
     //エラー文
@@ -83,7 +92,7 @@
 </div>
 
 <!-- 掲示ページへ戻る -->
-<a href="index.php">戻る</a>
+<a href="index.php">掲示ページへ戻る</a>
 
 <!-- ここまでbody -->
 

@@ -11,7 +11,7 @@
 session_destroy();
 
 $_SESSION['message'] = "ログアウトしました。";
-header("Location: https://tb-220261.tech-base.net/TADABON/work/web/login.php");
+header("Location: https://tb-220261.tech-base.net/TADABON/work/web/index.php");
 exit();
 ?>
 
