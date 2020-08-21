@@ -44,7 +44,8 @@
 
         if (password_verify($pass, $result['pass'])) {    
           $_SESSION['id'] = $result["id"];
-          $_SESSION['mead'] = $mead;
+          $_SESSION['name'] = $result["name"];
+          // $_SESSION['mead'] = $mead;
           $_SESSION['message'] = 'ログインしました。';
           header('Location: https://tb-220261.tech-base.net/TADABON/work/web/mypage.php');
           exit();

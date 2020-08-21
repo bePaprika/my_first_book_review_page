@@ -15,7 +15,7 @@ $stmt = $pdo->query($sql);
 //登録者データベース
 $sql = "CREATE TABLE IF NOT EXISTS Accounts"
 ." ("
-. "id INT AUTO_INCREMENT PRIMARY KEY," //ID
+. "post_id INT AUTO_INCREMENT PRIMARY KEY," //ID
 . "name char(128)," //ユーザー名
 . "mead char(128)," //メールアドレス
 . "pass char(128)," //パスワード

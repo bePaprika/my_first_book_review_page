@@ -37,7 +37,6 @@
 <main>
 <h1>新着レビュー</h1>
 <?php
-
 $sql = 'SELECT * FROM Date WHERE publi = 1　ORDER BY id DESC LIMIT 4';
 $stmt = $pdo->query($sql);
 $results = $stmt->fetchAll();
@@ -58,7 +57,6 @@ foreach ($results as $row){
   echo '投稿者： '.$row['name'].'　時刻： '.$row['post_at'].'<br>';
   echo '<br>';
 }
-
 ?>
 </main>
 

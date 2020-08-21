@@ -30,4 +30,29 @@
             }
     }
 
+    //ログイン
+    function validateAccount()
+    {
+        if(isset($need_login)){
+            // ログインされていない場合ログイン画面へ飛ばす
+            $id = $_SESSION["id"];
+            if (!isset($_SESSION["id"])) {
+                header("Location: https://tb-220261.tech-base.net/TADABON/work/web/login.php");
+                exit;
+            }
+
+            try{
+                //トランザクション開始
+                $pdo->beginTransaction();
+                $sql = "SELECT * FROM Accounts WHERE id=(:id)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+                $stmt->execute();
+                $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            }
+            catch (PDOException $e){
+                echo $e->getMessage();
+            }
+        }
+    }
 ?>

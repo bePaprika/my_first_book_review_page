@@ -7,7 +7,7 @@ $sql = 'SELECT * FROM Date';
 $stmt = $pdo->query($sql);
 $results = $stmt->fetchAll();
 foreach ($results as $row){
-  echo $row['id'].' , ';
+  echo $row['post_id'].' , ';
   echo $row['title'].' , ';
   echo $row['first'].' , ';
   echo $row['comment'].' , ';
@@ -25,7 +25,7 @@ $stmt = $pdo->query($sql);
 //Create
 $sql = "CREATE TABLE IF NOT EXISTS Data"
 ." ("
-. "id INT AUTO_INCREMENT PRIMARY KEY," //ID
+. "post_id INT AUTO_INCREMENT PRIMARY KEY," //ID
 . "title TEXT,"   //書籍名
 . "first INT," //初投稿かどうか 1:初投稿
 . "comment TEXT,"  //書籍へのコメント

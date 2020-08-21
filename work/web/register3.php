@@ -74,14 +74,15 @@
       $_SESSION['name'] = $name;
       $_SESSION['pass'] = $pass;
   
-      //アカウント入力判定
+      
       //パスワード入力判定
       if ($pass === ""):
         $errors['pass'] = "パスワードが入力されていません。";
       else:
         $password_hide = str_repeat('*', strlen($pass));
       endif;
-  
+      
+      //ユーザーネーム入力判定
       if ($name === ""):
         $errors['name'] = "ユーザーネームが入力されていません。";
       endif;
@@ -162,8 +163,8 @@
 <!-- page_1 登録画面 -->
 	<?php if(count($errors) > 0): ?>
        <?php
-       foreach($errors as $value){
-           echo "<p class='error'>".$value."</p>";
+       foreach($errors as $error){
+           echo "<p class='error'>".$error."</p>";
        }
        ?>
    <?php endif; ?>
