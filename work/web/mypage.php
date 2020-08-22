@@ -19,8 +19,8 @@
 
 <div>
   <div>
-    <p>こんにちは<?php print $result["name"]; ?>さん</p>
-    <!-- <p>メールアドレス：<?php print $result["mead"]; ?></p> -->
+    <p>こんにちは<?php print $_SESSION["name"]; ?>さん</p>
+    <!-- <p>メールアドレス：<?php print $_SESSION["mead"]; ?></p> -->
   </div>
 </div>
 
@@ -28,10 +28,12 @@
 <h2>本の続きを記録する</h2>
 
 <main>
-<h1>新着レビュー</h1>
+<h1>あなたの最近の投稿</h1>
 <?php
-$sql = 'SELECT * FROM Date WHERE publi = 1　ORDER BY post_id DESC LIMIT 4';
+$name=$_SESSION["name"];
+$sql = 'SELECT * FROM Data WHERE public = 1 AND name=:name ORDER BY post_id DESC LIMIT 4';
 $stmt = $pdo->query($sql);
+$stmt->bindParam(':name', $name, PDO::PARAM_STR);
 $results = $stmt->fetchAll();
 foreach ($results as $row){
   //タイトル
@@ -51,10 +53,11 @@ foreach ($results as $row){
   echo '<br>';
 }
 ?>
-</main>
+
+<!-- </main>
 <ul>
-  <li><a href="データベース内の本のタイトル</li>
-</ul>
+  <li><a href="データベース内の本のタイトル">データベース内の本のタイトル</li>
+</ul> -->
 
 <nav>
   <ul>

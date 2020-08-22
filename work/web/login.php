@@ -76,21 +76,13 @@
   }
 ?>
 
-<div>
-  <label for="mead">メールアドレス
-  <input type="text" id="mead" name="mead" placeholder="メールアドレスを入力" value="<?php if (!empty($_POST["mead"])) {echo htmlspecialchars($_POST["mead"], ENT_QUOTES);} ?>">
-  </label>
-</div>
-
-<div>
-  <label for="pass">パスワード
-  <input type="password" id="pass" name="pass" value="" placeholder="パスワードを入力">
-  </label>
-</div>
-
-<input type="submit" id="login" name="login" value="ログイン">
+<form action="" method="post">
+  <label>メールアドレス：<input type="text" name="mead" placeholder="メールアドレスを入力" 
+    value="<?php if (!empty($_POST["mead"])) {echo htmlspecialchars($_POST["mead"], ENT_QUOTES);} ?>"></label><br>
+  <label>パスワード　　：<input type="password" id="pass" name="pass" value="" placeholder="パスワードを入力"></label><br>
+  <input type="submit" id="login" name="login" value="ログイン"><br><br>
 </form>
-</div>
+
 
 <!-- 掲示ページへ戻る -->
 <a href="index.php">掲示ページへ戻る</a>

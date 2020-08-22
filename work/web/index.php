@@ -25,11 +25,12 @@
   else{
     $state = "ログイン";
   }
+  
 ?>
 
 <nav>
   <ul>
-    <li><a href="login.php"><?php h($state) ?></a></li>
+    <li> <?php echo "<a href=\"login.php\">".h($state)."</a>"; ?> </li>
     <li><a href="register.php">アカウントを作る</a></li>
   </ul>
 </nav>
@@ -37,7 +38,7 @@
 <main>
 <h1>新着レビュー</h1>
 <?php
-$sql = 'SELECT * FROM Date WHERE publi = 1　ORDER BY id DESC LIMIT 4';
+$sql = 'SELECT * FROM Data WHERE public = 1 ORDER BY post_id DESC LIMIT 4';
 $stmt = $pdo->query($sql);
 $results = $stmt->fetchAll();
 foreach ($results as $row){

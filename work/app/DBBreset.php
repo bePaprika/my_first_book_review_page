@@ -3,7 +3,7 @@ require("../../sec_info.php");
 
 //Check
 echo "投稿書籍情報一覧<br>";
-$sql = 'SELECT * FROM Date';
+$sql = 'SELECT * FROM Data';
 $stmt = $pdo->query($sql);
 $results = $stmt->fetchAll();
 foreach ($results as $row){
@@ -20,7 +20,7 @@ foreach ($results as $row){
 echo "<hr>";
 
 //Delete
-$sql = 'DROP TABLE Date';
+$sql = 'DROP TABLE Data';
 $stmt = $pdo->query($sql);
 //Create
 $sql = "CREATE TABLE IF NOT EXISTS Data"
