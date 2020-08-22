@@ -35,24 +35,9 @@
     {
         // ログインされていない場合ログイン画面へ飛ばす
         if (!isset($_SESSION["id"])) {
-            $_SESSION['message'] = "投稿を行うにはアカウントが必要です。ログインかアカウント登録を行ってください。";
+            $_SESSION['message'] = "ログインかアカウント登録を行ってください。";
             header("Location: https://tb-220261.tech-base.net/TADABON/work/web/index.php");
             exit;
-        }
-        else{
-            $id = $_SESSION["id"];
-            try{
-                //トランザクション開始
-                $pdo->beginTransaction();
-                $sql = "SELECT * FROM Accounts WHERE id=(:id)";
-                $stmt = $pdo->prepare($sql);
-                $stmt->bindValue(':id', $id, PDO::PARAM_STR);
-                $stmt->execute();
-                $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            }
-            catch (PDOException $e){
-                echo $e->getMessage();
-            } 
         }
     }
 ?>

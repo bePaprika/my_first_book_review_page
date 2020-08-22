@@ -6,6 +6,19 @@
   $errors = array();
 
   validateAccount();
+  $id = $_SESSION["id"];
+  try{
+    //トランザクション開始
+    $pdo->beginTransaction();
+    $sql = "SELECT * FROM Accounts WHERE id=(:id)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(':id', $id, PDO::PARAM_STR);
+    $stmt->execute();
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  }
+  catch (PDOException $e){
+    echo $e->getMessage();
+  } 
 ?>
 
 <!-- ここからbody -->
@@ -29,7 +42,7 @@
 
 <h2>あなたの最近の読書</h2>
 <?php
-  $sql = 'SELECT * FROM Data ORDER BY post_id DESC LIMIT 4'; //WHERE name = :name 
+  $sql = 'SELECT * FROM Data ORDER BY post_id DESC LIMIT 4'; //WHERE name = (:name) 
   $stmt = $pdo->query($sql);
   // $stmt->bindParam(':name', $_SESSION["name"], PDO::PARAM_STR);
   // $stmt->execute();    
