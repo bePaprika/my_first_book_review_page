@@ -30,17 +30,17 @@
             }
     }
 
-    //ログイン
+    //ログイン確認
     function validateAccount()
     {
-        if(isset($need_login)){
-            // ログインされていない場合ログイン画面へ飛ばす
+        // ログインされていない場合ログイン画面へ飛ばす
+        if (!isset($_SESSION["id"])) {
+            $_SESSION['message'] = "投稿を行うにはアカウントが必要です。ログインかアカウント登録を行ってください。";
+            header("Location: https://tb-220261.tech-base.net/TADABON/work/web/index.php");
+            exit;
+        }
+        else{
             $id = $_SESSION["id"];
-            if (!isset($_SESSION["id"])) {
-                header("Location: https://tb-220261.tech-base.net/TADABON/work/web/login.php");
-                exit;
-            }
-
             try{
                 //トランザクション開始
                 $pdo->beginTransaction();
@@ -52,7 +52,7 @@
             }
             catch (PDOException $e){
                 echo $e->getMessage();
-            }
+            } 
         }
     }
 ?>

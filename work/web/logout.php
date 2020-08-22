@@ -1,9 +1,8 @@
 <?php
   $title = "ログアウト - ";
-  require("../app/function.php");
   require("../../sec_info.php");
+  require("../app/function.php");
   include("../app/_parts/_header.php");
-
   $errors = array();
 ?>
 
@@ -16,7 +15,6 @@ exit();
 ?>
 
 
-<div><?php echo $error; ?></div>
 
 <ul>
 <li><a href="login.php">ログインページへ</a></li>

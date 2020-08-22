@@ -1,7 +1,7 @@
 <?php
   $title = "本登録画面 - ";
-  require("../app/function.php");
   require("../../sec_info.php");
+  require("../app/function.php");
   include("../app/_parts/_header.php");
 
   createToken();

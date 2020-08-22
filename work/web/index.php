@@ -1,7 +1,7 @@
 <?php
   $title = "TOP - ";
-  require("../app/function.php");
   require("../../sec_info.php");
+  require("../app/function.php");
   include("../app/_parts/_header.php");
 ?>
 
@@ -13,8 +13,9 @@
 <p>本は読むと身になるので実質タダ!!<br>
 実質タダじゃんと感じる本を共有しよう<br></p>
 
+<!-- 遷移メッセージがある場合はここで表示 -->
 <?php if(isset($_SESSION['message'])): ?>
-  <p class="message"><?php print $_SESSION['message']; ?></p>
+  <p style="color: red" class="message"><?php print $_SESSION['message']; ?></p>
   <?php $_SESSION['message'] = NULL ?>
 <?php endif; ?>
 
@@ -62,7 +63,6 @@ foreach ($results as $row){
 </main>
 
 <aside>
-<h1>本ごとにレビューを見る</h1>
 <h1>本を検索する</h1>
 
 </aside>

@@ -1,12 +1,13 @@
 <?php
   $title = "新規投稿 - ";
   $need_login = 1;
-  require("../app/function.php");
   require("../../sec_info.php");
+  require("../app/function.php");
   include("../app/_parts/_header.php");
-  
-  createToken();
   $errors = array();
+
+  validateAccount();
+  createToken();
 ?>
 <h1>新しい本を読み始めましょう</h1>
 <?php
