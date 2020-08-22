@@ -6,6 +6,7 @@
   include("../app/_parts/_header.php");
 
   $errors = array();
+  $name = $_SESSION["name"];
 ?>
 
 <!-- ここからbody -->
@@ -19,39 +20,38 @@
 
 <div>
   <div>
-    <p>こんにちは<?php print $_SESSION["name"]; ?>さん</p>
-    <!-- <p>メールアドレス：<?php print $_SESSION["mead"]; ?></p> -->
+    <p>こんにちは<?= $_SESSION["name"] ?>さん</p>
   </div>
 </div>
 
 <h2><a href="newpost.php">新しい本を読み始める</a>
 <h2>本の続きを記録する</h2>
 
-<main>
-<h1>あなたの最近の投稿</h1>
+
+<h2>あなたの最近の読書</h2>
 <?php
-$name=$_SESSION["name"];
-$sql = 'SELECT * FROM Data WHERE public = 1 AND name=:name ORDER BY post_id DESC LIMIT 4';
-$stmt = $pdo->query($sql);
-$stmt->bindParam(':name', $name, PDO::PARAM_STR);
-$results = $stmt->fetchAll();
-foreach ($results as $row){
-  //タイトル
-  echo '書籍名　　　：'.$row['title'].'<br>';
-  //コメント
-  if($row['first']==1){echo "期待すること：";}
-  else{echo "コメント　　：";}
-  echo $row['comment'].'<br>';
-  //読書の状態
-  echo '読書の状態　：';
-  if($row['fin']==1){echo "読了";}
-  elseif($row['dis']==1){echo "挫折";}
-  else{echo "読書中";}
-  //補足情報
-  echo '<br>';
-  echo '投稿者： '.$row['name'].'　時刻： '.$row['post_at'].'<br>';
-  echo '<br>';
-}
+  $sql = 'SELECT * FROM Data ORDER BY post_id DESC LIMIT 4'; //WHERE name = :name 
+  $stmt = $pdo->query($sql);
+  // $stmt->bindParam(':name', $_SESSION["name"], PDO::PARAM_STR);
+  // $stmt->execute();    
+  $results = $stmt->fetchAll();
+  foreach ($results as $row){
+    //タイトル
+    echo '書籍名　　　：'.$row['title'].'<br>';
+    //コメント
+    if($row['first']==1){echo "期待すること：";}
+    else{echo "コメント　　：";}
+    echo $row['comment'].'<br>';
+    //読書の状態
+    echo '読書の状態　：';
+    if($row['fin']==1){echo "読了";}
+    elseif($row['dis']==1){echo "挫折";}
+    else{echo "読書中";}
+    //補足情報
+    echo '<br>';
+    echo '時刻　　　　：'.$row['post_at'].'<br>';
+    echo '<br>';
+  }
 ?>
 
 <!-- </main>

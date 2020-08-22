@@ -150,9 +150,9 @@
 <!-- page_2 確認画面-->
 <?php elseif (isset($_POST['btn_confirm']) && count($errors) === 0): ?>
 	<form action="<?php echo $_SERVER['SCRIPT_NAME'] ?>?urltoken=<?php print $urltoken; ?>" method="post">
-		<p>メールアドレス：<?=htmlspecialchars($_SESSION['mead'], ENT_QUOTES)?></p>
+		<p>メールアドレス：<?= h($_SESSION['mead'])?></p>
 		<p>パスワード：<?=$password_hide?></p>
-		<p>ユーザーネーム：<?=htmlspecialchars($name, ENT_QUOTES)?></p>
+		<p>ユーザーネーム：<?= h($name);?></p>
 		
 		<input type="submit" name="btn_back" value="戻る">
 		<input type="hidden" name="token" value="<?=$_POST['token']?>">
@@ -170,7 +170,7 @@
    <?php endif; ?>
 		<?php if(!isset($errors['urltoken_timeover'])): ?>
 			<form action="<?php echo $_SERVER['SCRIPT_NAME'] ?>?urltoken=<?php print $urltoken; ?>" method="post">
-				<p>メールアドレス：<?=htmlspecialchars($mead, ENT_QUOTES, 'UTF-8')?></p>
+				<p>メールアドレス：<?= h($mead);?></p>
 				<p>パスワード：<input type="password" name="pass"></p>
 				<p>ユーザーネーム：<input type="text" name="name" value="<?php if( !empty($_SESSION['name']) ){ echo $_SESSION['name']; } ?>"></p>
 				<input type="hidden" name="token" value="<?=$token?>">
