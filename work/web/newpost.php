@@ -24,7 +24,7 @@
     $sql = "SELECT post_id FROM Data WHERE title=:title AND name=:name";
     $stm = $pdo->prepare($sql);
     $stm->bindValue(':title', $title, PDO::PARAM_STR);
-    $stm->bindValue(':name', $name, PDO::PARAM_STR);
+    $stm->bindValue(':name', $_SESSION['name'], PDO::PARAM_STR);
     $stm->execute();
     $result = $stm->fetch(PDO::FETCH_ASSOC);
 
@@ -33,11 +33,12 @@
     }
     else{
       //データベースに書き込む
-      $sql = $pdo -> prepare("INSERT INTO Data (title,first,comment,name,post_at,fin,dis,public)
-                              VALUES(:title,1,:comment,:name,now(),0,0,:public)");
+      $sql = $pdo -> prepare("INSERT INTO Data (title,first,comment,id,name,post_at,fin,dis,public)
+                              VALUES(:title,1,:comment,:id,:name,now(),0,0,:public)");
       $sql -> bindParam(':title', $title, PDO::PARAM_STR);
       $sql -> bindParam(':comment', $comment, PDO::PARAM_STR);
-      $sql -> bindParam(':name', $name, PDO::PARAM_STR);
+      $sql -> bindParam(':id', $_SESSION['id'], PDO::PARAM_STR);
+      $sql -> bindParam(':name', $_SESSION['name'], PDO::PARAM_STR);
       $sql -> bindParam(':public', $public, PDO::PARAM_INT);
       $sql -> execute();
       echo "「".$title."」を本棚に登録しました。<br>";

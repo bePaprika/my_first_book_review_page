@@ -15,7 +15,7 @@ $stmt = $pdo->query($sql);
 //登録者データベース
 $sql = "CREATE TABLE IF NOT EXISTS Accounts"
 ." ("
-. "post_id INT AUTO_INCREMENT PRIMARY KEY," //ID
+. "id INT AUTO_INCREMENT PRIMARY KEY," //ID
 . "name char(128)," //ユーザー名
 . "mead char(128)," //メールアドレス
 . "pass char(128)," //パスワード
@@ -29,10 +29,11 @@ $stmt = $pdo->query($sql);
 //投稿データベース
 $sql = "CREATE TABLE IF NOT EXISTS Data"
 ." ("
-. "id INT AUTO_INCREMENT PRIMARY KEY," //ID
+. "post_id INT AUTO_INCREMENT PRIMARY KEY," //ID
 . "title TEXT,"   //書籍名
 . "first INT," //初投稿かどうか 1:初投稿
 . "comment TEXT,"  //書籍へのコメント
+. "id INT," //ユーザーid
 . "name char(128)," //ユーザー名
 . "post_at DATETIME," //書き込み日時
 . "fin INT,"  //読了ダミー　 1:読了

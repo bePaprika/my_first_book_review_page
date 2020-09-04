@@ -11,9 +11,6 @@
 
 
 <?php
-
-  
-
   if(empty($_GET)) {
     header("Location: https://tb-220261.tech-base.net/TADABON/work/web/index.php");
     exit();

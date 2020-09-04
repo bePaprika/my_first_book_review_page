@@ -11,6 +11,7 @@ foreach ($results as $row){
   echo $row['title'].' , ';
   echo $row['first'].' , ';
   echo $row['comment'].' , ';
+  echo $row['id'].' , ';
   echo $row['name'].' , ';
   echo $row['post_at'].' , ';
   echo $row['fin'].' , ';

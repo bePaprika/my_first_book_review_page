@@ -1,7 +1,7 @@
 <?php
 require("../../sec_info.php");
 
-//Pre登録者一覧
+//Pre登録者一覧確認
 echo "Pre登録者一覧<br>";
 $sql = 'SELECT * FROM Pre';
 $stmt = $pdo->query($sql);
@@ -15,7 +15,7 @@ foreach ($results as $row){
 }
 echo "<hr>";
 
-//Accounts登録者一覧
+//Accounts登録者一覧確認
 echo "Accounts登録者一覧<br>";
 $sql = 'SELECT * FROM Accounts';
 $stmt = $pdo->query($sql);
@@ -29,12 +29,17 @@ foreach ($results as $row){
 }
 echo "<hr>";
 
+
+//Pre登録者DB削除
 $sql = 'DROP TABLE Pre';
 $stmt = $pdo->query($sql);
 
+//Accounts登録者DB削除
 $sql = 'DROP TABLE Accounts';
 $stmt = $pdo->query($sql);
 
+
+//Pre登録者DB作成
 $sql = "CREATE TABLE IF NOT EXISTS Pre"
 ." ("
 . "id INT AUTO_INCREMENT PRIMARY KEY," //ID
@@ -45,6 +50,7 @@ $sql = "CREATE TABLE IF NOT EXISTS Pre"
 .");";
 $stmt = $pdo->query($sql);
 
+//Accounts登録者DB作成
 $sql = "CREATE TABLE IF NOT EXISTS Accounts"
 ." ("
 . "id INT AUTO_INCREMENT PRIMARY KEY," //ID
@@ -58,6 +64,5 @@ $sql = "CREATE TABLE IF NOT EXISTS Accounts"
 .");";
 $stmt = $pdo->query($sql);
 
-echo "<hr>";
 echo "これらのDBを初期化しました<br>";
 ?>
