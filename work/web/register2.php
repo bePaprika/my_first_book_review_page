@@ -34,7 +34,9 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
   $result = $stm->fetch(PDO::FETCH_ASSOC);
   
   if(isset($result["id"])){
-    $errors['mail_dupli'] = "このメールアドレスはすでに利用されております。";
+    $errors['mail_dupli'] = "このメールアドレスはすでにアカウント登録されています。";
+    //エラーメール送信
+    // require("../../phpmailer/error_mail.php");
   }
   else{
     //既に仮登録メールを送っている

@@ -25,7 +25,7 @@
     {
         if (empty($_SESSION['token']) || $_SESSION['token'] !== filter_input(INPUT_POST, 'token')) 
             {
-                $_SESSION['message'] = "不正な遷移が行われました。";
+                $_SESSION['message'] = "ログインかアカウント登録を行ってください。";
                 header('Location: https://tb-220261.tech-base.net/TADABON/work/web/index.php');
                 exit;
             }

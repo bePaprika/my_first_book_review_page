@@ -44,7 +44,8 @@ $stmt = $pdo->query($sql);
 $results = $stmt->fetchAll();
 foreach ($results as $row){
   //タイトル
-  echo '書籍名　　　：'.$row['title'].'<br>';
+  $booktitle = $row['title'];
+  echo "書籍名　　　：<a href=\"book.php?booktitle=$booktitle\">".$booktitle."</a><br>";
   //コメント
   if($row['first']==1){echo "期待すること：";}
   else{echo "コメント　　：";}

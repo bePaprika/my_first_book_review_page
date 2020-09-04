@@ -7,21 +7,7 @@
 
   validateAccount();
   $id = $_SESSION["id"];
-  // try{
-  //   //トランザクション開始
-  //   $pdo->beginTransaction();
-  //   $sql = "SELECT * FROM Accounts WHERE id=(:id)";
-  //   $stmt = $pdo->prepare($sql);
-  //   $stmt->bindValue(':id', $id, PDO::PARAM_STR);
-  //   $stmt->execute();
-  //   $result = $stmt->fetch(PDO::FETCH_ASSOC);
-  // }
-  // catch (PDOException $e){
-  //   echo $e->getMessage();
-  // } 
 ?>
-
-<!-- ここからbody -->
 
 <h1>マイページ</h1>
 
@@ -37,39 +23,45 @@
   </div>
 </div>
 
+
 <h2><a href="newpost.php">新しい本を読み始める</a>
+
 <h2>本の続きを記録する</h2>
-
-<nav>
-  <ul>
-    <?php
-      $sql = 'SELECT * FROM Data WHERE name = :name ORDER BY post_id DESC LIMIT 4'; //WHERE name = (:name) 
-      // $stmt = $pdo->query($sql);
-      $stmt = $pdo->prepare($sql);
-      $stmt->bindParam(':name', $_SESSION["name"], PDO::PARAM_STR);
-      $stmt->execute();    
-      $results = $stmt->fetchAll();
-      foreach ($results as $row){
-        $booktitle = $row['title'];
-    ?>
-
-    <li> <?php echo "<a href=\"mybook.php?booktitle=$booktitle\">".$booktitle."</a>"; ?> </li>
-
-    <?php
-      }
+<!-- DBから自分の投稿だけ選択 -->
+<?php
+  // 重複を許さず最近読んだ本を選択
+  $sql = 'SELECT * FROM Data WHERE post_id IN(SELECT MAX(post_id) FROM Data WHERE id = :id GROUP BY title )';
+  // $stmt = $pdo->query($sql);
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindParam(':id', $_SESSION["id"], PDO::PARAM_INT);
+  $stmt->execute();    
+  $results = $stmt->fetchAll();
 ?>
- </ul>
-</nav>
+<!-- 表示 -->
+<ul>
+  <?php
+    foreach ($results as $row){
+      $booktitle = $row['title'];
+  ?>
+  <li> <?php echo "<a href=\"mybook.php?booktitle=$booktitle\">".$booktitle."</a>"; ?> </li>
+  <?php
+    }
+  ?>
+</ul>
+
 
 <h2>あなたの最近の読書</h2>
 
 <?php
-  $sql = 'SELECT * FROM Data WHERE id = :id ORDER BY post_id DESC LIMIT 4'; //WHERE name = (:name) 
+  // DBから自分の投稿だけ選択
+  $sql = 'SELECT * FROM Data WHERE id = :id ORDER BY post_id DESC LIMIT 4'; 
   // $stmt = $pdo->query($sql);
   $stmt = $pdo->prepare($sql);
-  $stmt->bindParam(':id', $_SESSION["id"], PDO::PARAM_STR);
+  $stmt->bindParam(':id', $_SESSION["id"], PDO::PARAM_INT);
   $stmt->execute();    
   $results = $stmt->fetchAll();
+
+  //表示
   foreach ($results as $row){
     //タイトル
     $booktitle = $row['title'];
@@ -90,10 +82,6 @@
   }
 ?>
 
-<!-- </main>
-<ul>
-  <li><a href="データベース内の本のタイトル">データベース内の本のタイトル</li>
-</ul> -->
 
 <nav>
   <ul>
@@ -102,8 +90,7 @@
   </ul>
 </nav>
 
-
-<!-- ここまでbody -->
+<p><a href="#top">先頭へ戻る</a></p>
 
 <?php
   include("../app/_parts/_footer.php");

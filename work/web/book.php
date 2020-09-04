@@ -8,7 +8,7 @@
   validateAccount();
 ?>
 
-<!-- 正しい遷移(booktitleがしていされている)か確認 -->
+<!-- 正しい遷移(booktitleが指定されている)か確認 -->
 <?php
   if(empty($_GET)) {
     header("Location: https://tb-220261.tech-base.net/TADABON/work/web/mypage.php");
@@ -26,7 +26,7 @@
 ?>
 
 <!-- 本のタイトル -->
-<h1><?php print h($booktitle); ?></h1>
+<h1><?php print h($booktitle); ?>[掲示板]</h1>
 
 <!-- POST受信 -->
 <?php
@@ -35,11 +35,6 @@
     $status = $_POST["status"];
     $comment = $_POST["comment"];
     $public = $_POST["public"];
-
-    //状態の割り当て
-    if($status==="0"){$fin=0;$dis=0;}
-    elseif($status==="1"){$fin=1;$dis=0;}
-    else{$fin=0;$dis=1;}
 
     //データベースに書き込む
     $sql = $pdo -> prepare("INSERT INTO Data (title,first,comment,id,name,post_at,fin,dis,public)

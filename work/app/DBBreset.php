@@ -22,6 +22,7 @@ echo "<hr>";
 //Delete
 $sql = 'DROP TABLE Data';
 $stmt = $pdo->query($sql);
+
 //Create
 $sql = "CREATE TABLE IF NOT EXISTS Data"
 ." ("
@@ -38,5 +39,5 @@ $sql = "CREATE TABLE IF NOT EXISTS Data"
 .");";
 $stmt = $pdo->query($sql);
 
-echo "Dateを初期化しました<br>";
+echo "Dataを初期化しました<br>";
 ?>
