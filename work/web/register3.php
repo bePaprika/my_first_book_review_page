@@ -141,7 +141,7 @@
 
 <!-- page_3 完了画面-->
 <?php if(isset($_POST['btn_submit']) && count($errors) === 0): ?>
-  <h1>TADABON本登録ありがとうございます!</h1>
+  <h1>ReadTrough本登録ありがとうございます!</h1>
   <!-- header('Location: https://tb-220261.tech-base.net/TADABON/work/web/register4.php'."?urltoken=".print $urltoken);  -->
 
 <!-- page_2 確認画面-->
@@ -168,8 +168,8 @@
 		<?php if(!isset($errors['urltoken_timeover'])): ?>
 			<form action="<?php echo $_SERVER['SCRIPT_NAME'] ?>?urltoken=<?php print $urltoken; ?>" method="post">
 				<p>メールアドレス：<?= h($mead);?></p>
-				<p>パスワード：<input type="password" name="pass"></p>
-				<p>ユーザーネーム：<input type="text" name="name" value="<?php if( !empty($_SESSION['name']) ){ echo $_SESSION['name']; } ?>"></p>
+				<label>パスワード：<input type="password" name="pass"></label>
+				<label>ユーザーネーム：<input type="text" name="name" value="<?php if( !empty($_SESSION['name']) ){ echo $_SESSION['name']; } ?>"></label>
 				<input type="hidden" name="token" value="<?=$token?>">
 				<input type="submit" name="btn_confirm" value="確認する">
 			</form>

@@ -5,7 +5,6 @@
   include("../app/_parts/_header.php");
 
   createToken();
-  validateAccount();
 ?>
 
 <!-- 正しい遷移(booktitleが指定されている)か確認 -->
@@ -51,21 +50,44 @@
     
   }
 ?>
+<!-- ログインしているか -->
+<?php if (!isset($_SESSION["id"])):
+  //ログインしているならば この本を読み始めているか確認
+    $sql = "SELECT post_id FROM Data WHERE title=:title AND name=:name";
+    $stm = $pdo->prepare($sql);
+    $stm->bindValue(':title', $booktitle, PDO::PARAM_STR);
+    $stm->bindValue(':name', $_SESSION['name'], PDO::PARAM_STR);
+    $stm->execute();
+    $result = $stm->fetch(PDO::FETCH_ASSOC);
 
-<!-- POST送信 -->
-<form action="" method="post">
-  <laber>読書記録：<textarea name="comment" placeholder="コメントを入力"></textarea></laber>
-  <br>
-  <laber>読書状態：<input type="radio" name="status" value="0" checked>継続中</laber>
-  <laber>          <input type="radio" name="status" value="1">読了！</laber>
-  <laber>          <input type="radio" name="status" value="2">挫折..</laber>
-  <br>
-  <laber>公開設定：<input type="radio" name="public" value="1" checked>公開する</laber>
-  <laber>          <input type="radio" name="public" value="0">公開しない</laber>
-  <br>
-  <input type="submit" name="post" value="投稿"><br><br>
-  <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">
-</form>
+    if(isset($result["post_id"])){$started = "1";}
+    else{$started = "0";}
+?>
+
+  <!-- この本を読み始めているならば POST送信 を表示 -->
+  <?php if ($started === "1"):?>
+    <form action="" method="post">
+      <laber>読書記録：<textarea name="comment" placeholder="コメントを入力"></textarea></laber>
+      <br>
+      <laber>読書状態：<input type="radio" name="status" value="0" checked>継続中</laber>
+      <laber>          <input type="radio" name="status" value="1">読了！</laber>
+      <laber>          <input type="radio" name="status" value="2">挫折..</laber>
+      <br>
+      <laber>公開設定：<input type="radio" name="public" value="1" checked>公開する</laber>
+      <laber>          <input type="radio" name="public" value="0">公開しない</laber>
+      <br>
+      <input type="submit" name="post" value="投稿"><br><br>
+      <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">
+    </form>
+    <p>掲示板での投稿は公開されます。非公開で投稿したい場合はマイページで投稿してください。</p>
+
+  <!-- この本を読み始めていないならば 本棚へ追加 を表示 -->
+  <?php elseif ($started === "0"):?>
+  <?="この本を本棚に追加し<a href=\"newpost.php?booktitle=$booktitle\">読み始める</a><br>";?>
+
+  <?endif;?>
+<?endif;?>
+
 
 <!-- この本に対して自分がしたコメント一覧 -->
 <h2>過去ログ</h2>

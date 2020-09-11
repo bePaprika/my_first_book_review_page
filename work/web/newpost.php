@@ -11,6 +11,11 @@
 ?>
 <h1>新しい本を読み始めましょう</h1>
 <?php
+  //GETで本のタイトルが渡された場合、GETデータを変数に入れる
+  if (isset($_GET)){
+    $booktitle = isset($_GET["booktitle"]) ? $_GET["booktitle"] : NULL;
+  }
+
   //POSTの受信と変数の定義
   if (isset($_POST['post'])) {
     validateToken();
@@ -57,7 +62,7 @@
 ?>
 
 <form action="" method="post">
-  <laber>書籍名　　　　　　　：<input type="text" name="title" placeholder="本のタイトルを入力"></label><br>
+  <laber>書籍名　　　　　　　：<input type="text" name="title" value = <?=h($booktitle)?> placeholder="本のタイトルを入力"></label><br>
   <laber>この本に期待する内容：<textarea name="comment" placeholder="期待する内容・抱負などを入力"></textarea></laber><br><br>
   <laber>公開設定<input type="radio" name="public" value="1" checked>公開する</laber>
   <laber><input type="radio" name="public" value="0">公開しない</laber>

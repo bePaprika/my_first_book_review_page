@@ -2,8 +2,8 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title><?= h($title);?>TADABON</title>
-  <meta name="description" content="タダ本は実質タダ!!と感じるような良書を共有し、読書体験をより良いものとすることを目的とするサービスです。">
+  <title><?= h($title);?>ReadTrough</title>
+  <meta name="description" content="勉強のための読書の継続を後押しすることそして、読みやすく身のある良書を共有することを目的としたサービスです">
   <link rel="icon" href="favicon.ico" type="image/x-icon">
 </head>
 

@@ -14,11 +14,10 @@
 
 <!-- POST送信 -->
 <form action="register2.php" method="post">
-  <p>メールアドレス：<input type="text" name="mead" placeholder=""></p>
+  <label>メールアドレス：<input type="text" name="mead" placeholder=""></label>
   <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">
   <button>送信</button>
 </form>
-
 
 
 <!-- TOPページへ戻る -->

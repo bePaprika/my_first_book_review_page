@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD']==='POST'){
     }
   }
 
-  
+  //エラーがあれば表示し、なければメールを送信
   if(count($errors) === 0){
     require("../../phpmailer/pre_mail.php");
   }
