@@ -1,25 +1,21 @@
 <?php
   $title = "Mypage - ";
+  $intro = "ロゴをクリックするとサイトトップに戻ります";
+  $errors = array();
+
   require("../../sec_info.php");
   require("../app/function.php");
   include("../app/_parts/_header.php");
-  $errors = array();
+  
 
   validateAccount();
-  $id = $_SESSION["id"];
 ?>
 
 <h2>マイページ</h2>
 
-<!-- メッセージがある場合表示する -->
-<?php if(isset($_SESSION['message'])): ?>
-  <p><?php print $_SESSION['message']; ?></p>
-  <?php $_SESSION['message'] = NULL ?>
-<?php endif; ?>
-
 <div>
   <div>
-    <p>こんにちは<?= $_SESSION["name"] ?>さん</p>
+    <p>こんにちは<?= h($_SESSION["name"]) ?>さん</p>
   </div>
 </div>
 
@@ -41,9 +37,10 @@
 <ul>
   <?php
     foreach ($results as $row){
-      $booktitle = $row['title'];
+      $title = $row['title'];
+      $auther = $row['auther'];
   ?>
-  <li> <?php echo "<a href=\"mybook.php?booktitle=$booktitle\" class=\"link1\">".$booktitle."</a>"; ?> </li>
+  <li> <?= '<a href="mybook.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).'</a>'; ?> </li>
   <?php
     }
   ?>
@@ -61,14 +58,16 @@
   $stmt->execute();    
   $results = $stmt->fetchAll();
 
+ 
+
   //表示
   foreach ($results as $row){
     ?>
     <div class="box">
       <?php
       //タイトル
-      $booktitle = $row['title'];
-      echo "書籍名　　　：<a href=\"mybook.php?booktitle=$booktitle\" class=\"link1\">".$booktitle."</a><br>";
+      $title = $row['title'];
+      echo '書籍名　　　：<a href="mybook.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).' ['.h($auther).'</a><br>';
       //コメント
       if($row['first']==1){echo "期待すること：";}
       else{echo "コメント　　：";}

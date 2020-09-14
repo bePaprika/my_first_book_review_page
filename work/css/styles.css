@@ -18,14 +18,19 @@ header{
 
 .logo{
   margin-left: 30px;
-  text-shadow: -5px 3px #cfc0aa;
+  
 }
 
-.link_logo:link, .link_logo:visited, .link_logo:hover, .link_logo:active{
-  
+.link_logo:link, .link_logo:visited, .link_logo:active{
   color: #E73825;
   font-style: italic;
   text-decoration: none;
+  text-shadow: -5px 3px #c3b39caa;
+  transition: text-shadow .3s;
+}
+
+.link_logo:hover{
+  text-shadow: 0px 0px #c3b39caa;
 }
 
 .info{
@@ -51,20 +56,30 @@ header{
 
 .button1{
   color: #efefef;
-  text-decoration: none;
-  font-weight: bold;
   background-color: #bb0009cc;
+  box-shadow: 0 1px 2px #C3B39Ccc;
+  font-weight: bold;
+  text-decoration: none;
   border-radius: 10px;
   padding: 10px;
+}
+.button1:hover{
+  background-color: #bb0009;
 }
 
 .button2{
   color: #efefef;
-  text-decoration: none;
-  font-weight: bold;
   background-color: #739488cc;
+  box-shadow: 0 1px 2px #C3B39Ccc;
+  font-weight: bold;
+  text-decoration: none;
   border-radius: 10px;
   padding: 10px;
+  
+}
+
+.button2:hover{
+  background-color: #739488;
 }
 
 
@@ -82,20 +97,15 @@ h3{
   margin-left: 40px;
 }
 
-.box > h3{
-  margin-left: 0;
-}
-
 p{
   margin-left: 30px;
 }
 
-.page_intro{
+.intro{
   color: #efefef;
   background-color: #7f6c68;
   margin: 0;
   padding-left: 30px;
-
 }
 
 .box{
@@ -118,6 +128,7 @@ p{
   padding-bottom: 20px;
 }
 
+/* ボックス内部のp */
 .box p{
   margin-left: 0;
 }
@@ -125,18 +136,22 @@ p{
   margin-left: 0;
 }
 
+/* 書籍ページへのリンク */
 .link1:link, .link1:visited, .link1:hover, .link1:active{
   color: #739488;
 }
 
+/* 先頭へ戻るのリンク */
 .link2:link, .link2:visited, .link2:hover, .link2:active{
   color: #4d4150;
 }
 
+/* 本を読み始めるのリンク */
 .link3:link, .link3:visited, .link3:hover, .link3:active{
   color: #7f6c68;
 }
 
+/* 進行系ボタン */
 .submit{
   width: 345px;
   border-style: none;
@@ -146,7 +161,11 @@ p{
   border-radius: 7px;
   padding: 7px;
 }
+.submit:hover{
+  background-color: #E73825;
+}
 
+/* 後退系ボタン */
 .btn_back{
   width: 345px;
   border-style: none;
@@ -156,6 +175,10 @@ p{
   border-radius: 7px;
   padding: 7px;
 }
+.btn_back:hover{
+  background-color: #739488;
+}
+
 
 footer p{
   text-align: center;
@@ -163,6 +186,14 @@ footer p{
   margin-bottom: 60px;
   color: #C3B39C;
 }
+
+/* .message{
+
+}
+
+.error{
+
+} */
 
 
 

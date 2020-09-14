@@ -1,5 +1,8 @@
 <?php
-  $title = "メール認証 - ";
+  //ok
+  $tab = "メール認証 - ";
+  $intro = "勉強のための読書を応援し、読みやすく身になる書籍を共有するサイトです";
+
   require("../../sec_info.php");
   require("../app/function.php");
   include("../app/_parts/_header.php");
@@ -7,7 +10,6 @@
   createToken();
 ?>
 
-<!-- ここからbody -->
 
 <h2>仮登録</h2>
 
@@ -22,8 +24,6 @@
   </form>
 </div>
 
-
-<!-- ここまでbody -->
 
 <?php
   include("../app/_parts/_footer.php");

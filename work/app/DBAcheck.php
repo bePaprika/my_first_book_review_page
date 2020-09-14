@@ -33,8 +33,7 @@ foreach ($results as $row){
   echo $row['id'].' , ';
   echo $row['name'].' , ';
   echo $row['mead'].' , ';
-  echo substr($row['pass'],0,10).' , ';
-  echo $row['status'].'<br>';
+  echo substr($row['pass'],0,10).'<br>';
 }
 echo "<hr>";
 ?>
