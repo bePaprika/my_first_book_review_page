@@ -24,8 +24,38 @@
   }
 ?>
 
-<!-- 本のタイトル -->
-<h1><?php print h($booktitle); ?>[掲示板]</h1>
+<!-- 本のタイトルを表示 -->
+<h2><?php print h($booktitle); ?>[掲示板]</h2>
+
+<!-- この本に対する皆のコメントを表示 -->
+<h3>みんなの投稿</h3>
+<?php
+  $sql = "SELECT * FROM Data WHERE title = :title ORDER BY post_id DESC"; 
+  // $stmt = $pdo->query($sql);
+  $stmt = $pdo->prepare($sql);
+  $stmt->bindParam(':title', $booktitle, PDO::PARAM_STR);
+  $stmt->execute();    
+  $results = $stmt->fetchAll();
+  foreach ($results as $row){
+    ?>
+    <div class="box">
+      <?php
+      //コメント
+      if($row['first']==1){echo "期待すること：";}
+      else{echo "コメント　　：";}
+      echo $row['comment']."<br>";
+      echo "<br>";
+      //時刻
+      echo "日時　　　　：".$row['post_at'];
+      //読書の状態
+      if($row['fin']==1){echo "　読了　";}
+      elseif($row['dis']==1){echo "　挫折　";}
+      echo "<br>";
+      ?>
+    </div>
+    <?php
+  }
+?>
 
 <!-- POST受信 -->
 <?php
@@ -51,12 +81,13 @@
   }
 ?>
 <!-- ログインしているか -->
-<?php if (!isset($_SESSION["id"])):
+<?php 
+if (isset($_SESSION["id"])):
   //ログインしているならば この本を読み始めているか確認
-    $sql = "SELECT post_id FROM Data WHERE title=:title AND name=:name";
+    $sql = "SELECT post_id FROM Data WHERE title=:title AND id=:id";
     $stm = $pdo->prepare($sql);
     $stm->bindValue(':title', $booktitle, PDO::PARAM_STR);
-    $stm->bindValue(':name', $_SESSION['name'], PDO::PARAM_STR);
+    $stm->bindValue(':id', $_SESSION['id'], PDO::PARAM_STR);
     $stm->execute();
     $result = $stm->fetch(PDO::FETCH_ASSOC);
 
@@ -64,63 +95,45 @@
     else{$started = "0";}
 ?>
 
-  <!-- この本を読み始めているならば POST送信 を表示 -->
-  <?php if ($started === "1"):?>
-    <form action="" method="post">
-      <laber>読書記録：<textarea name="comment" placeholder="コメントを入力"></textarea></laber>
-      <br>
-      <laber>読書状態：<input type="radio" name="status" value="0" checked>継続中</laber>
-      <laber>          <input type="radio" name="status" value="1">読了！</laber>
-      <laber>          <input type="radio" name="status" value="2">挫折..</laber>
-      <br>
-      <laber>公開設定：<input type="radio" name="public" value="1" checked>公開する</laber>
-      <laber>          <input type="radio" name="public" value="0">公開しない</laber>
-      <br>
-      <input type="submit" name="post" value="投稿"><br><br>
-      <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">
-    </form>
-    <p>掲示板での投稿は公開されます。非公開で投稿したい場合はマイページで投稿してください。</p>
+    <!-- この本を読み始めているならば POST送信 を表示 -->
+    <?php if ($started === "1"):?>
+      <h3>投稿フォーム</h3>
+      <div class="box_form">
+        <p>掲示板での投稿は公開されます。非公開で投稿したい場合はマイページで投稿してください。</p>
+        <form action="" method="post">
+          <laber>読書記録：<textarea name="comment" cols="60" rows="5" placeholder="コメントを入力"></textarea></laber>
+          <br>
+          <laber>読書状態：<input type="radio" name="status" value="0" checked>継続中</laber>
+          <laber>          <input type="radio" name="status" value="1">読了！</laber>
+          <laber>          <input type="radio" name="status" value="2">挫折..</laber>
+          <br>
+          <laber>公開設定：<input type="radio" name="public" value="1" checked>公開する</laber>
+          <laber>          <input type="radio" name="public" value="0">公開しない</laber>
+          <br>
+          <input type="submit" name="post" class="submit" alue="投稿"><br>
+          <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">
+        </form>
+        
+      </div>
 
-  <!-- この本を読み始めていないならば 本棚へ追加 を表示 -->
-  <?php elseif ($started === "0"):?>
-  <?="この本を本棚に追加し<a href=\"newpost.php?booktitle=$booktitle\">読み始める</a><br>";?>
+    <!-- この本を読み始めていないならば 本棚へ追加 を表示 -->
+    <?php elseif ($started === "0"):?>
+    <?="<p>この本を本棚に追加し<a href=\"newpost.php?booktitle=$booktitle\">読み始める</a><br></p>";?>
 
-  <?endif;?>
-<?endif;?>
-
-
-<!-- この本に対して自分がしたコメント一覧 -->
-<h2>過去ログ</h2>
-<?php
-  $sql = "SELECT * FROM Data WHERE id = :id AND title = :title ORDER BY post_id DESC"; 
-  // $stmt = $pdo->query($sql);
-  $stmt = $pdo->prepare($sql);
-  $stmt->bindParam(':title', $booktitle, PDO::PARAM_STR);
-  $stmt->bindParam(':id', $_SESSION["id"], PDO::PARAM_INT);
-  $stmt->execute();    
-  $results = $stmt->fetchAll();
-  foreach ($results as $row){
-    //コメント
-    if($row['first']==1){echo "期待すること：";}
-    else{echo "コメント　　：";}
-    echo $row['comment']."<br>";
-    //時刻
-    echo "日時　　　　：".$row['post_at'];
-    //読書の状態
-    if($row['fin']==1){echo "　読了　";}
-    elseif($row['dis']==1){echo "　挫折　";}
-    echo "<br><br>";
-  }
+  <?php endif;?>
+<!-- ログインしていないならば -->
+<?php 
+else:
+  echo "<p>書き込みを行うには<a href=\"login.php\">ログイン</a>もしくは<a href=\"register.php\">アカウント作成</a>を行ってください<br></p>";
 ?>
 
-<nav>
-  <ul>
-    <li><a href="mypage.php">マイページへ戻る</a></li>
-    <li><a href="index.php">掲示ページへ戻る</a></li>
-  </ul>
-</nav>
+<?php endif;?>
 
-<p><a href="#top">先頭へ戻る</a></p>
+
+
+
+
+<p><a href="#top" class="link2">先頭へ戻る</a></p>
 
 <?php
   include("../app/_parts/_footer.php");

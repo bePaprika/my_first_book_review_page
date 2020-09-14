@@ -1,0 +1,154 @@
+body{
+  color: #4d4150;
+  font-family: Verdana, sans-serif;
+  margin: 0;
+}
+
+header{
+  background-color: #efefef;
+  padding: 10px;
+}
+
+.container{
+  /* background-color: pink; */
+  margin-right: auto;
+  margin-left: auto;
+  display: flex;
+}
+
+.logo{
+  margin-left: 30px;
+  text-shadow: -5px 3px #cfc0aa;
+}
+
+.info{
+  /* background-color: tomato; */
+  margin: 0 0 0 auto;
+  
+}
+
+.info ul{
+  color: #efefef;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  list-style-type: none;
+  display: flex;
+  /* align-items: center; */
+  
+}
+
+.info ul li{
+  margin-right: 10px;
+  
+}
+
+.button1{
+  color: #efefef;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #bb0009cc;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.button2{
+  color: #efefef;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #739488cc;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.button3{
+  color: #efefef;
+  text-decoration: none;
+  font-weight: bold;
+  background-color: #bb0009cc;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+h1{
+  color: #E73825;
+  font-style: italic;
+}
+
+h2{
+  color: #7f6c68;
+  margin-left: 30px;
+}
+
+h3{
+  margin-left: 40px;
+}
+
+.box > h3{
+  margin-left: 0;
+}
+
+p{
+  margin-left: 30px;
+}
+
+.page_intro{
+  color: #efefef;
+  background-color: #7f6c68;
+  margin: 0;
+  padding-left: 30px;
+
+}
+
+.box{
+  width: 700px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #C3B39C;
+  margin: 10px;
+  margin-left: 30px;
+  padding: 10px;
+  
+}
+
+.box_form{
+  width: 700px;
+  background-color: #efefef;
+  margin: 10px;
+  margin-left: 30px;
+  padding: 10px;
+  padding-bottom: 20px;
+}
+
+.box p{
+  margin-left: 0;
+}
+.box_form p{
+  margin-left: 0;
+}
+
+.link1:link, .link1:visited, .link1:hover, .link1:active{
+  color: #739488;
+}
+
+.link2:link, .link2:visited, .link2:hover, .link2:active{
+  color: #4d4150;
+}
+
+.submit{
+  border-style: none;
+  color: white;
+  font-weight: bold;
+  background-color: #E73825;
+  border-radius: 7px;
+  padding: 7px;
+}
+
+footer p{
+  text-align: center;
+  font-size: 14px;
+  margin-bottom: 60px;
+  color: #C3B39C;
+}
+
+
+

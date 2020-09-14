@@ -26,7 +26,7 @@
 ?>
 
 <!-- 本のタイトル -->
-<h1><?php print h($booktitle); ?></h1>
+<h2><?php print h($booktitle); ?></h2>
 
 <!-- POST受信 -->
 <?php
@@ -58,19 +58,21 @@
 ?>
 
 <!-- POST送信 -->
-<form action="" method="post">
-  <laber>読書記録：<textarea name="comment" placeholder="コメントを入力"></textarea></laber>
-  <br>
-  <laber>読書状態：<input type="radio" name="status" value="0" checked>継続中</laber>
-  <laber>          <input type="radio" name="status" value="1">読了！</laber>
-  <laber>          <input type="radio" name="status" value="2">挫折..</laber>
-  <br>
-  <laber>公開設定：<input type="radio" name="public" value="1" checked>公開する</laber>
-  <laber>          <input type="radio" name="public" value="0">公開しない</laber>
-  <br>
-  <input type="submit" name="post" value="投稿"><br><br>
-  <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">
-</form>
+<div class="box_form">
+  <form action="" method="post">
+    <laber>読書記録：<textarea name="comment" placeholder="コメントを入力"></textarea></laber>
+    <br>
+    <laber>読書状態：<input type="radio" name="status" value="0" checked>継続中</laber>
+    <laber>          <input type="radio" name="status" value="1">読了！</laber>
+    <laber>          <input type="radio" name="status" value="2">挫折..</laber>
+    
+    <laber>公開設定：<input type="radio" name="public" value="1" checked>公開する</laber>
+    <laber>          <input type="radio" name="public" value="0">公開しない</laber>
+    <br>
+    <input type="submit" name="post" value="投稿"><br><br>
+    <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">
+  </form>
+</div>
 
 <!-- この本に対して自分がしたコメント一覧 -->
 <h2>過去ログ</h2>
@@ -83,25 +85,26 @@
   $stmt->execute();    
   $results = $stmt->fetchAll();
   foreach ($results as $row){
-    //コメント
-    if($row['first']==1){echo "期待すること：";}
-    else{echo "コメント　　：";}
-    echo $row['comment']."<br>";
-    //時刻
-    echo "日時　　　　：".$row['post_at'];
-    //読書の状態
-    if($row['fin']==1){echo "　読了　";}
-    elseif($row['dis']==1){echo "　挫折　";}
-    echo "<br><br>";
+    ?>
+    <div class="box">
+      <?php
+      //コメント
+      if($row['first']==1){echo "期待すること：";}
+      else{echo "コメント　　：";}
+      echo $row['comment']."<br>";
+      echo "<br>";
+      //時刻
+      echo "日時　　　　：".$row['post_at'];
+      //読書の状態
+      if($row['fin']==1){echo "　読了　";}
+      elseif($row['dis']==1){echo "　挫折　";}
+      echo "<br>";
+      ?>
+    </div>
+    <?php
   }
 ?>
 
-<nav>
-  <ul>
-    <li><a href="mypage.php">マイページへ戻る</a></li>
-    <li><a href="index.php">掲示ページへ戻る</a></li>
-  </ul>
-</nav>
 
 <p><a href="#top">先頭へ戻る</a></p>
 

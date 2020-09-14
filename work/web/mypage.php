@@ -9,7 +9,7 @@
   $id = $_SESSION["id"];
 ?>
 
-<h1>マイページ</h1>
+<h2>マイページ</h2>
 
 <!-- メッセージがある場合表示する -->
 <?php if(isset($_SESSION['message'])): ?>
@@ -43,7 +43,7 @@
     foreach ($results as $row){
       $booktitle = $row['title'];
   ?>
-  <li> <?php echo "<a href=\"mybook.php?booktitle=$booktitle\">".$booktitle."</a>"; ?> </li>
+  <li> <?php echo "<a href=\"mybook.php?booktitle=$booktitle\" class=\"link1\">".$booktitle."</a>"; ?> </li>
   <?php
     }
   ?>
@@ -63,32 +63,33 @@
 
   //表示
   foreach ($results as $row){
-    //タイトル
-    $booktitle = $row['title'];
-    echo "書籍名　　　：<a href=\"mybook.php?booktitle=$booktitle\">".$booktitle."</a><br>";
-    //コメント
-    if($row['first']==1){echo "期待すること：";}
-    else{echo "コメント　　：";}
-    echo $row['comment']."<br>";
-    //読書の状態
-    echo "読書の状態　：";
-    if($row['fin']==1){echo "読了";}
-    elseif($row['dis']==1){echo "挫折";}
-    else{echo "読書中";}
-    //補足情報
-    echo "<br>";
-    echo "時刻　　　　：".$row['post_at']."<br>";
-    echo "<br>";
+    ?>
+    <div class="box">
+      <?php
+      //タイトル
+      $booktitle = $row['title'];
+      echo "書籍名　　　：<a href=\"mybook.php?booktitle=$booktitle\" class=\"link1\">".$booktitle."</a><br>";
+      //コメント
+      if($row['first']==1){echo "期待すること：";}
+      else{echo "コメント　　：";}
+      echo $row['comment']."<br>";
+      echo "<br>";
+      //読書の状態
+      echo "読書の状態　：";
+      if($row['fin']==1){echo "読了";}
+      elseif($row['dis']==1){echo "挫折";}
+      else{echo "読書中";}
+      //補足情報
+      echo "<br>";
+      echo "時刻　　　　：".$row['post_at']."<br>";
+      ?>
+    </div>
+    <?php
   }
 ?>
 
 
-<nav>
-  <ul>
-    <li><a href="logout.php">ログアウト</a></li>
-    <li><a href="index.php">掲示ページへ戻る</a></li>
-  </ul>
-</nav>
+
 
 <p><a href="#top">先頭へ戻る</a></p>
 

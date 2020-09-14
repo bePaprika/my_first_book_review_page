@@ -45,7 +45,7 @@
           $_SESSION['id'] = $result["id"];
           $_SESSION['name'] = $result["name"];
           // $_SESSION['mead'] = $mead;
-          $_SESSION['message'] = 'ログインしました。';
+          // $_SESSION['message'] = 'ログインしました。';
           header('Location: https://tb-220261.tech-base.net/TADABON/work/web/mypage.php');
           exit();
         } 
@@ -61,7 +61,7 @@
 
 ?>
 
-<h1>ログイン画面</h1>
+<h2>ログイン</h2>
 
 <div class="form">
 <form id="loginForm" name="loginForm" action="" method="POST">
@@ -75,16 +75,18 @@
   }
 ?>
 
+<div class="box">
+<br>
 <form action="" method="post">
   <label>メールアドレス：<input type="text" name="mead" placeholder="メールアドレスを入力" 
     value="<?php if (!empty($_POST["mead"])) {echo htmlspecialchars($_POST["mead"], ENT_QUOTES);} ?>"></label><br>
   <label>パスワード　　：<input type="password" id="pass" name="pass" value="" placeholder="パスワードを入力"></label><br>
   <input type="submit" id="login" name="login" value="ログイン"><br><br>
 </form>
+</div>
 
 
-<!-- 掲示ページへ戻る -->
-<a href="index.php">掲示ページへ戻る</a>
+
 
 <!-- ここまでbody -->
 

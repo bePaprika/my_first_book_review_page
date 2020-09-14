@@ -9,7 +9,7 @@
   validateAccount();
   createToken();
 ?>
-<h1>新しい本を読み始めましょう</h1>
+<h2>新しい本を読み始めましょう</h2>
 <?php
   //GETで本のタイトルが渡された場合、GETデータを変数に入れる
   if (isset($_GET)){
@@ -61,22 +61,18 @@
   }
 ?>
 
+<div class="box">
+<br>
 <form action="" method="post">
-  <laber>書籍名　　　　　　　：<input type="text" name="title" value = <?=h($booktitle)?> placeholder="本のタイトルを入力"></label><br>
+  <laber>書籍名　　　　　　　：<input type="text" name="title" value="<?=h($booktitle)?>" placeholder="本のタイトルを入力"></label><br>
   <laber>この本に期待する内容：<textarea name="comment" placeholder="期待する内容・抱負などを入力"></textarea></laber><br><br>
   <laber>公開設定<input type="radio" name="public" value="1" checked>公開する</laber>
   <laber><input type="radio" name="public" value="0">公開しない</laber>
-  <br>
+  <br><br>
   <input type="submit" name="post" value="読み始める"><br><br>
   <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">
 </form>
-
-<nav>
-  <ul>
-    <li><a href="mypage.php">マイページへ戻る</a></li>
-    <li><a href="index.php">掲示ページへ戻る</a></li>
-  </ul>
-</nav>
+</div>
 
 
 <?php

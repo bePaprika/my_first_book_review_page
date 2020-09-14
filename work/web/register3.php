@@ -1,5 +1,5 @@
 <?php
-  $title = "本登録画面 - ";
+  $title = "本登録ページ - ";
   require("../../sec_info.php");
   require("../app/function.php");
   include("../app/_parts/_header.php");
@@ -137,11 +137,11 @@
   }
 
 ?>
-<h1>会員登録画面</h1>
+<h2>会員登録</h2>
 
 <!-- page_3 完了画面-->
 <?php if(isset($_POST['btn_submit']) && count($errors) === 0): ?>
-  <h1>ReadTrough本登録ありがとうございます!</h1>
+  <h2>ReadTrough本登録ありがとうございます!</h2>
   <!-- header('Location: https://tb-220261.tech-base.net/TADABON/work/web/register4.php'."?urltoken=".print $urltoken);  -->
 
 <!-- page_2 確認画面-->

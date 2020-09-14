@@ -6,7 +6,7 @@
 
   $errors = array();
 ?>
-<h1>仮登録画面</h1>
+<h2>仮登録</h2>
 <?php
 
 if ($_SERVER['REQUEST_METHOD']==='POST'){
@@ -69,13 +69,6 @@ else{
 }
 ?>
 
-
-<nav>
-  <ul>
-    <li><a href="register.php">仮登録画面へ戻る</a></li>
-    <li><a href="index.php">掲示ページへ戻る</a></li>
-  </ul>
-</nav>
 <?php
   include("../app/_parts/_footer.php");
 ?>

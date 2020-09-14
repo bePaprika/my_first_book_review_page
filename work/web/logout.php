@@ -15,13 +15,6 @@ exit();
 ?>
 
 
-
-<ul>
-<li><a href="login.php">ログインページへ</a></li>
-</ul>
-
-
-
 <?php
   include("../app/_parts/_footer.php");
 ?>
