@@ -11,6 +11,7 @@
 
 
 <?php
+  //GETのない不正な繊維 
   if(empty($_GET)) {
     header("Location: https://tb-220261.tech-base.net/TADABON/work/web/index.php");
     exit();
@@ -22,7 +23,7 @@
 
     //メール入力判定
     if ($urltoken === ""){
-      $errors['urltoken'] = "トークンがありません。";
+      $errors['urltoken'] = "問題が発生しました、メールにてお問い合わせください";
     }
 
     else{
@@ -43,7 +44,7 @@
           $_SESSION['mead'] = $mead;
         }
         else{
-          $errors['urltoken_timeover'] = "このURLはご利用できません。有効期限が過ぎたかURLが間違えている可能性がございます。";
+          $errors['urltoken_timeover'] = 'このURLはご利用できません。有効期限が過ぎたかURLが間違えている可能性があります。';
         }
         //データベース接続切断
         $stm = null;
@@ -141,47 +142,46 @@
 
 <!-- page_3 完了画面-->
 <?php if(isset($_POST['btn_submit']) && count($errors) === 0): ?>
-  <h2>ReadTrough本登録ありがとうございます!</h2>
+  <h2>ReadTrough 登録ありがとうございます!</h2>
   <!-- header('Location: https://tb-220261.tech-base.net/TADABON/work/web/register4.php'."?urltoken=".print $urltoken);  -->
 
 <!-- page_2 確認画面-->
 <?php elseif (isset($_POST['btn_confirm']) && count($errors) === 0): ?>
-	<form action="<?php echo $_SERVER['SCRIPT_NAME'] ?>?urltoken=<?php print $urltoken; ?>" method="post">
-		<p>メールアドレス：<?= h($_SESSION['mead'])?></p>
-		<p>パスワード：<?=$password_hide?></p>
-		<p>ユーザーネーム：<?= h($name);?></p>
-		
-		<input type="submit" name="btn_back" value="戻る">
-		<input type="hidden" name="token" value="<?=$_POST['token']?>">
-		<input type="submit" name="btn_submit" value="登録する">
-	</form>
+  <div class="box_form">
+    <form action="<?php echo $_SERVER['SCRIPT_NAME'] ?>?urltoken=<?php print $urltoken; ?>" method="post">
+      <p>メールアドレス：<?= h($_SESSION['mead'])?></p>
+      <p>パスワード　　：<?=$password_hide?></p>
+      <p>ユーザーネーム：<?= h($name);?></p>
+      
+      <input type="submit" name="btn_back" class="btn_back" value="戻る">
+      <input type="hidden" name="token" value="<?=$_POST['token']?>">
+      <input type="submit" name="btn_submit" class="submit" value="登録">
+    </form>
+  </div>
 
 <?php else: ?>
 <!-- page_1 登録画面 -->
 	<?php if(count($errors) > 0): ?>
        <?php
+       //エラーがあれば表示
        foreach($errors as $error){
            echo "<p class='error'>".$error."</p>";
        }
        ?>
    <?php endif; ?>
-		<?php if(!isset($errors['urltoken_timeover'])): ?>
-			<form action="<?php echo $_SERVER['SCRIPT_NAME'] ?>?urltoken=<?php print $urltoken; ?>" method="post">
-				<p>メールアドレス：<?= h($mead);?></p>
-				<label>パスワード：<input type="password" name="pass"></label>
-				<label>ユーザーネーム：<input type="text" name="name" value="<?php if( !empty($_SESSION['name']) ){ echo $_SESSION['name']; } ?>"></label>
-				<input type="hidden" name="token" value="<?=$token?>">
-				<input type="submit" name="btn_confirm" value="確認する">
-			</form>
+    <?php if(!isset($errors['urltoken_timeover'])): ?>
+      <div class="box_form">
+        <form action="<?php echo $_SERVER['SCRIPT_NAME'] ?>?urltoken=<?php print $urltoken; ?>" method="post">
+          <p>メールアドレス：<?= h($mead);?></p>
+          <p><label>パスワード　　：<input type="password" name="pass"></label></p>
+          <p><label>ユーザーネーム：<input type="text" name="name" value="<?php if( !empty($_SESSION['name']) ){ echo $_SESSION['name']; } ?>"></label></p>
+          <input type="hidden" name="token" value="<?=$token?>">
+          <input type="submit" name="btn_confirm" class="submit" value="確認">
+        </form>
+      </div>
 		<?php endif ?>
 <?php endif; ?>
 
-<nav>
-  <ul>
-    <!-- <li><a href="register.php">登録画面へ戻る</a></li> -->
-    <li><a href="index.php">掲示ページへ戻る</a></li>
-  </ul>
-</nav>
 
 <?php
   include("../app/_parts/_footer.php");

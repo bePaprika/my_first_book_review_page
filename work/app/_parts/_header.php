@@ -14,7 +14,7 @@
   <div class="container">
 
     <div class="logo">
-      <h1>ReadThrough</h1>
+      <h1><a href="index.php" class="link_logo"> ReadThrough</a></h1>
     </div>
     
     <?php
@@ -34,7 +34,6 @@
       <ul>
         <li> <?php echo $button1; ?> </li>
         <li> <?php echo $button2; ?> </li>
-        <li> <a href="index.php" class="button3"> トップページ </a> </li>
       </ul>
     </div>
 

@@ -11,14 +11,14 @@
 
 <h2>仮登録</h2>
 
-<div class="box">
+<div class="box_form">
   <p>登録用のメールアドレスを入力してください</p>
 
   <!-- POST送信 -->
   <form action="register2.php" method="post">
-    <label>メールアドレス：<input type="text" name="mead" placeholder=""></label>
-    <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>"><br>
-    <button>メール送信</button><br><br>
+    <p><label>メールアドレス：<input type="text" name="mead" placeholder=""></label><p>
+    <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">
+    <input type="submit" class="submit" value="送信">
   </form>
 </div>
 

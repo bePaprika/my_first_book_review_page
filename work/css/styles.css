@@ -21,6 +21,13 @@ header{
   text-shadow: -5px 3px #cfc0aa;
 }
 
+.link_logo:link, .link_logo:visited, .link_logo:hover, .link_logo:active{
+  
+  color: #E73825;
+  font-style: italic;
+  text-decoration: none;
+}
+
 .info{
   /* background-color: tomato; */
   margin: 0 0 0 auto;
@@ -60,14 +67,6 @@ header{
   padding: 10px;
 }
 
-.button3{
-  color: #efefef;
-  text-decoration: none;
-  font-weight: bold;
-  background-color: #bb0009cc;
-  border-radius: 10px;
-  padding: 10px;
-}
 
 h1{
   color: #E73825;
@@ -134,11 +133,26 @@ p{
   color: #4d4150;
 }
 
+.link3:link, .link3:visited, .link3:hover, .link3:active{
+  color: #7f6c68;
+}
+
 .submit{
+  width: 345px;
   border-style: none;
   color: white;
   font-weight: bold;
-  background-color: #E73825;
+  background-color: #E73825cc;
+  border-radius: 7px;
+  padding: 7px;
+}
+
+.btn_back{
+  width: 345px;
+  border-style: none;
+  color: white;
+  font-weight: bold;
+  background-color: #739488cc;
   border-radius: 7px;
   padding: 7px;
 }

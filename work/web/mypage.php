@@ -24,7 +24,7 @@
 </div>
 
 
-<h2><a href="newpost.php">新しい本を読み始める</a>
+<h2><a href="newpost.php" class="link3">新しい本を読み始める</a>
 
 <h2>本の続きを記録する</h2>
 <!-- DBから自分の投稿だけ選択 -->
@@ -91,7 +91,7 @@
 
 
 
-<p><a href="#top">先頭へ戻る</a></p>
+<p><a href="#top" class="link2">先頭へ戻る</a></p>
 
 <?php
   include("../app/_parts/_footer.php");

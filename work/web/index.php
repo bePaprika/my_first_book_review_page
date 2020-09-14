@@ -14,7 +14,7 @@
 
 <!-- 遷移メッセージがある場合はここで表示 -->
 <?php if(isset($_SESSION['message'])): ?>
-  <p style="color: red" class="message"><?php print $_SESSION['message']; ?></p>
+  <p><class="message"><?= $_SESSION['message']; ?></p>
   <?php $_SESSION['message'] = NULL ?>
 <?php endif; ?>
 
@@ -59,7 +59,7 @@
 
 
 
-<p><a href="#top">先頭へ戻る</a></p>
+<p><a href="#top" class>先頭へ戻る</a></p>
 <!-- ここまでbody -->
 
 <?php
