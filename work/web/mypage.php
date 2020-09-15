@@ -1,13 +1,12 @@
 <?php
+ //ok
   $title = "Mypage - ";
   $intro = "ロゴをクリックするとサイトトップに戻ります";
-  $errors = array();
 
   require("../../sec_info.php");
   require("../app/function.php");
   include("../app/_parts/_header.php");
   
-
   validateAccount();
 ?>
 
@@ -26,22 +25,20 @@
 <!-- DBから自分の投稿だけ選択 -->
 <?php
   // 重複を許さず最近読んだ本を選択
-  $sql = 'SELECT * FROM Data WHERE post_id IN(SELECT MAX(post_id) FROM Data WHERE id = :id GROUP BY title )';
+  $sql = 'SELECT * FROM Data WHERE post_id IN(SELECT MAX(post_id) FROM Data WHERE id = :id GROUP BY title AND auther)';
   // $stmt = $pdo->query($sql);
   $stmt = $pdo->prepare($sql);
   $stmt->bindParam(':id', $_SESSION["id"], PDO::PARAM_INT);
   $stmt->execute();    
   $results = $stmt->fetchAll();
 ?>
-<!-- 表示 -->
-<ul>
+<!-- 最近読んだ本の書籍名を表示 -->
+<ul class="book_list">
   <?php
     foreach ($results as $row){
       $title = $row['title'];
       $auther = $row['auther'];
-  ?>
-  <li> <?= '<a href="mybook.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).'</a>'; ?> </li>
-  <?php
+      echo '<li><a href="mybook.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).'</a></li>'; 
     }
   ?>
 </ul>
@@ -51,7 +48,7 @@
 
 <?php
   // DBから自分の投稿だけ選択
-  $sql = 'SELECT * FROM Data WHERE id = :id ORDER BY post_id DESC LIMIT 4'; 
+  $sql = 'SELECT * FROM Data WHERE id = :id ORDER BY post_id DESC LIMIT 5'; 
   // $stmt = $pdo->query($sql);
   $stmt = $pdo->prepare($sql);
   $stmt->bindParam(':id', $_SESSION["id"], PDO::PARAM_INT);
@@ -59,19 +56,19 @@
   $results = $stmt->fetchAll();
 
  
-
-  //表示
+  //最近の読書記録を表示
   foreach ($results as $row){
     ?>
     <div class="box">
       <?php
       //タイトル
       $title = $row['title'];
+      $auther = $row['auther'];
       echo '書籍名　　　：<a href="mybook.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).' ['.h($auther).'</a><br>';
       //コメント
       if($row['first']==1){echo "期待すること：";}
       else{echo "コメント　　：";}
-      echo $row['comment']."<br>";
+      echo h($row['comment'])."<br>";
       echo "<br>";
       //読書の状態
       echo "読書の状態　：";
@@ -86,9 +83,6 @@
     <?php
   }
 ?>
-
-
-
 
 <p><a href="#top" class="link2">先頭へ戻る</a></p>
 

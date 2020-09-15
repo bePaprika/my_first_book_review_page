@@ -1,3 +1,10 @@
+html{
+  min-width: 750px;
+  max-width: 100px;
+  margin: 0 auto;
+  background: #eee;
+}
+
 body{
   color: #4d4150;
   font-family: Verdana, sans-serif;
@@ -177,6 +184,10 @@ p{
 }
 .btn_back:hover{
   background-color: #739488;
+}
+
+.booklist{
+  list-style-type: none
 }
 
 

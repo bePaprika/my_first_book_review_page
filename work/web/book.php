@@ -1,6 +1,6 @@
 <?php
   //ok
-  $tab = "掲示板 ".$_GET["title"]." - ";
+  $tab = "掲示板 ".h($_GET["title"])." - ";
   $intro = "勉強のための読書を応援し、読みやすく身になる書籍を共有するサイトです";
   $errors = array();
 
@@ -63,7 +63,7 @@
     $sql -> bindParam(':public', $public, PDO::PARAM_INT);
     $sql -> execute();
 
-    $errors['posted'] = "「".$title."」にコメントを追加しました。";
+    $errors['posted'] = "「".h($title)."」にコメントを追加しました。";
   }
 ?>
 
@@ -86,10 +86,10 @@
       //コメント
       if($row['first']==1){echo "習得したいこと：<br>";}
       else{echo "コメント：<br>";}
-      echo $row['comment']."<br>";
+      echo h($row['comment'])."<br>";
       echo "<br>";
       //投稿者
-      echo '投稿者： '.$row['name'].'<br>';
+      echo '投稿者： '.h($row['name']).'<br>';
       //時刻
       echo "日時　：".date_format($row['post_at'], 'Y-m-d');
       //読書の状態
@@ -127,14 +127,14 @@ if (isset($_SESSION["id"])):
           <laber>読書記録：<textarea name="comment" cols="60" rows="5" placeholder="コメントを入力"></textarea></laber>
           <br>
           <laber>読書状態：<input type="radio" name="status" value="0" checked>継続中</laber>
-          <laber>          <input type="radio" name="status" value="1">読了！</laber>
-          <laber>          <input type="radio" name="status" value="2">挫折..</laber>
+          <laber>          <input type="radio" name="status" value="1">        読了！</laber>
+          <laber>          <input type="radio" name="status" value="2">        挫折..</laber>
           <br>
           <laber>公開設定：<input type="radio" name="public" value="1" checked>公開する</laber>
-          <laber>          <input type="radio" name="public" value="0">公開しない</laber>
+          <laber>          <input type="radio" name="public" value="0">        公開しない</laber>
           <br>
-          <input type="submit" name="post" class="submit" alue="投稿"><br>
           <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">
+          <input type="submit" name="post" class="submit" value="投稿"><br> 
         </form>
         
       </div>

@@ -10,11 +10,11 @@
 
 
 <!-- 遷移メッセージがある場合はここで表示 -->
-<?php if(isset($_SESSION['message'])): ?>
-  <p><class="message"><?= $_SESSION['message']; ?></p>
-  <?php $_SESSION['message'] = NULL ?>
-<?php endif; ?>
-
+<?php 
+  if(isset($_SESSION['message'])){
+    echo '<p class="message">'.$_SESSION["message"].'</p>';
+  }
+?>
 
 <h2>新着レビュー</h2>
 
@@ -31,14 +31,14 @@
       $auther = $row['auther'];
       echo '<p>書籍：　<a href="book.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).'</a></p>';
       //著者
-      echo '<p>著者：　'.$auther.'</p>';
+      echo '<p>著者：　'.h($auther).'</p>';
       //コメント
       if($row['first']==1){echo '習得したいこと：<br>';}
       else{echo 'コメント：<br>';}
-      echo $row['comment'].'<br>';
+      echo h($row['comment']).'<br>';
       echo '<br>';
       //投稿者
-      echo '投稿者： '.$row['name'].'<br>';
+      echo '投稿者： '.h($row['name']).'<br>';
       //時刻
       echo '時刻　：'.date_format($row['post_at'], 'Y-m-d');
       //読書の状態
@@ -58,7 +58,6 @@
 
 
 <p><a href="#top" class="link2">先頭へ戻る</a></p>
-
 
 <?php
   include("../app/_parts/_footer.php");

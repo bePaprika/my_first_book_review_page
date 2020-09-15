@@ -1,7 +1,7 @@
 <?php
   //ok 
   $tab = "新規投稿 - ";
-  $intro = "勉強のための読書を応援し、読みやすく身になる書籍を共有するサイトです";
+  $intro = "読書をする目的を明確にして、読書体験を有意義なものにしましょう";
   $errors = array();
 
   require("../../sec_info.php");
@@ -92,7 +92,7 @@
 <?php
   //エラーがある場合ここでメッセージを表示する
   if(count($errors) > 0){
-    foreach($errors as $error){ echo "<p>$error</p>"; }
+    foreach($errors as $error){ echo "<p class='error'>$error</p>"; }
   }
 ?>
 

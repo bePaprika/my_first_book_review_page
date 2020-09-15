@@ -61,7 +61,7 @@
     }
     else{
       foreach($errors as $error){
-        echo "<p>$error</p>";
+        echo "<p class='error'>$error</p>";
       }
     }
 

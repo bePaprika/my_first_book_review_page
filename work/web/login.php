@@ -75,13 +75,11 @@
 
 <div class="box_form">
   <form action="" method="post">
-    <p><label>メールアドレス：<input type="text" name="mead" placeholder="メールアドレスを入力" 
-      value="<?php if (!empty($_POST["mead"])){echo h($_POST["mead"]);} ?>"></label></p>
-    <p><label>パスワード　　：<input type="password" id="pass" name="pass" value="" placeholder="パスワードを入力"></label></p>
-    <input type="submit" id="login" name="login" class="submit" value="ログイン">
+    <p><label>メールアドレス：<input type="text" name="mead" placeholder="メールアドレスを入力" value="<?php if (!empty($_POST["mead"])){echo h($_POST["mead"]);} ?>"></label></p>
+    <p><label>パスワード　　：<input type="password" name="pass" value="" placeholder="パスワードを入力"></label></p>
+                              <input type="submit" name="login" class="submit" value="ログイン">
   </form>
 </div>
-
 
 <?php
   include("../app/_parts/_footer.php");

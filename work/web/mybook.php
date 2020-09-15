@@ -1,7 +1,7 @@
 <?php
   //ok
-  $tab = "読書記録 ".$_GET["title"]." - ";
-  $intro = "勉強のための読書を応援し、読みやすく身になる書籍を共有するサイトです";
+  $tab = "読書記録 ".h($_GET["title"])." - ";
+  $intro = "読み切ることよりも、設定した目的を達成することを心がけましょう";
   $errors = array();
 
   require("../../sec_info.php");
@@ -13,7 +13,7 @@
 ?>
 
 <?php
-  //メッセージがある場合ここでメッセージを表示する
+  //エラーがある場合ここでメッセージを表示する
   if(count($errors) > 0){
     foreach($errors as $error){ echo "<p>$error</p>"; }
   }
@@ -37,14 +37,13 @@
 ?>
 
 <!-- 本のタイトルを表示 -->
-<h2><?= h($_GET['title']).' ['.h($_GET['title']).' 著]' ?></h2>
-<?= '<p><a href="book.php?title='.$_GET['title'].'&auther='.$_GET['title'].'" class="link2"> この本の掲示板へ </a></p>';?> 
+<h2><?= h($_GET["title"]).' ['.h($_GET["title"]).' 著]'; ?></h2>
+<?= '<p><a href="book.php?title='.h($_GET["title"]).'&auther='.h($_GET["title"]).'" class="link2"> この本の掲示板へ </a></p>';?> 
 
 <!-- POST受信 -->
 <?php
   if (isset($_POST["comment"])) {
     validateToken(); 
-
 
     //状態の割り当て
     if    ($_POST["status"]==="0"){$fin=0;$dis=0;}
@@ -64,7 +63,7 @@
     $sql -> bindParam(':public',  $_POST["public"],  PDO::PARAM_INT);
     $sql -> execute();
 
-    $errors['posted'] = "「".$_GET["title"]."」にコメントを追加しました。";
+    $errors['posted'] = "「".h($_GET["title"])."」に読書記録を追加しました。";
   }
   else{
     $errors['comment'] = "読書記録を記入してください";
@@ -106,7 +105,7 @@
       //コメント
       if($row['first']==1){echo "習得したいこと：";}
       else{echo "コメント：";}
-      echo $row['comment']."<br>";
+      echo h($row['comment'])."<br>";
       echo "<br>";
       //時刻
       echo "日時：".date_format($row['post_at'], 'Y-m-d');
