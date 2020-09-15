@@ -1,6 +1,6 @@
 <?php
  //ok
-  $title = "Mypage - ";
+  $tab = "Mypage - ";
   $intro = "ロゴをクリックするとサイトトップに戻ります";
 
   require("../../sec_info.php");
@@ -25,7 +25,7 @@
 <!-- DBから自分の投稿だけ選択 -->
 <?php
   // 重複を許さず最近読んだ本を選択
-  $sql = 'SELECT * FROM Data WHERE post_id IN(SELECT MAX(post_id) FROM Data WHERE id = :id GROUP BY title AND auther)';
+  $sql = 'SELECT * FROM Data WHERE post_id IN(SELECT MAX(post_id) FROM Data WHERE id = :id GROUP BY title)';
   // $stmt = $pdo->query($sql);
   $stmt = $pdo->prepare($sql);
   $stmt->bindParam(':id', $_SESSION["id"], PDO::PARAM_INT);
@@ -38,7 +38,7 @@
     foreach ($results as $row){
       $title = $row['title'];
       $auther = $row['auther'];
-      echo '<li><a href="mybook.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).'</a></li>'; 
+      echo '<li><a href="mybook.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).' ['.h($auther).']</a></li>'; 
     }
   ?>
 </ul>
@@ -55,7 +55,6 @@
   $stmt->execute();    
   $results = $stmt->fetchAll();
 
- 
   //最近の読書記録を表示
   foreach ($results as $row){
     ?>
@@ -64,20 +63,19 @@
       //タイトル
       $title = $row['title'];
       $auther = $row['auther'];
-      echo '書籍名　　　：<a href="mybook.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).' ['.h($auther).'</a><br>';
+      echo '書籍名　　　：<a href="mybook.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).' ['.h($auther).']</a><br>';
       //コメント
-      if($row['first']==1){echo "期待すること：";}
-      else{echo "コメント　　：";}
-      echo h($row['comment'])."<br>";
+      if($row['first']==1){echo "期待すること：<br>";}
+      else{echo "コメント　　：<br>";}
+      echo "<p style='white-space: pre-wrap';>".h($row['comment'])."</p>";
       echo "<br>";
+      //時刻
+      $date = date_create($row['post_at']);
+      echo "投稿日時：".date_format($date, 'Y/m/d　H:i');
       //読書の状態
-      echo "読書の状態　：";
-      if($row['fin']==1){echo "読了";}
-      elseif($row['dis']==1){echo "挫折";}
-      else{echo "読書中";}
-      //補足情報
+      if($row['fin']==1){echo "　読了　";}
+      elseif($row['dis']==1){echo "　挫折　";}
       echo "<br>";
-      echo "時刻　　　　：".$row['post_at']."<br>";
       ?>
     </div>
     <?php

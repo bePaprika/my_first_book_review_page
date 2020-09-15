@@ -51,7 +51,7 @@
       $result = $stm->fetch(PDO::FETCH_ASSOC);
       
       if(isset($result["id"])){
-        $errors['click_twice'] = "メールボックスをご確認ください。";
+        $errors['click_twice'] = "既に仮登録用メールを送信しております。メールボックスをご確認ください。";
       }
     }
 
@@ -61,7 +61,7 @@
     }
     else{
       foreach($errors as $error){
-        echo "<p class='error'>$error</p>";
+        echo '<div class="box_form">$error</div>';
       }
     }
 

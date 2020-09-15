@@ -25,7 +25,6 @@ foreach ($results as $row){
   echo $row['name'].' , ';
   echo $row['mead'].' , ';
   echo substr($row['pass'],0,10).' , ';
-  echo $row['status'].'<br>';
 }
 echo "<hr>";
 

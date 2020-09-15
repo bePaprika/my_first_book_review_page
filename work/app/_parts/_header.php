@@ -9,7 +9,7 @@
 </head>
 
 <body> 
-<!-- <img src="logo.png" width="300 height="50" alt="タダ本のロゴです"> -->
+<!-- <img src="logo.png" width="300 height="50" alt="ReadTroughのロゴです"> -->
 <header>
   <div class="container">
 
@@ -37,7 +37,8 @@
       </ul>
     </div>
 
-    <p class="intro"> <?=h($intro);?> </p>
-
   </div>
+  <p class="intro"> <?=h($intro);?> </p>
 </header>
+
+<main>

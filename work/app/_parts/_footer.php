@@ -1,5 +1,5 @@
-<footer>
-  <p>created by ひだりむきϵ( 'Θ' )϶</p>
-</footer>
+
+</main>
+<footer class="footer">created by ひだりむきϵ( 'Θ' )϶</footer>
 </body>
 </html>

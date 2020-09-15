@@ -1,7 +1,7 @@
 <?php
   //ok 
   $tab = "新規投稿 - ";
-  $intro = "読書をする目的を明確にして、読書体験を有意義なものにしましょう";
+  $intro = "読書をする目的を明確にして、読書体験を有意義なものにしましょう。";
   $errors = array();
 
   require("../../sec_info.php");
@@ -18,8 +18,10 @@
 <?php
   //GETで本のタイトルと著者が渡された場合、GETデータを変数に入れる
   if (isset($_GET)){
-    $title = isset($_GET["booktitle"]) ? $_GET["booktitle"] : NULL;
-    $auther =isset($_GET["auther"]) ? $_GET["auther"] : NULL;
+    $title = isset($_GET["title"]) ? $_GET["title"] : NULL;
+    $auther = isset($_GET["auther"]) ? $_GET["auther"] : NULL;
+    $_SESSION['title'] = isset($_GET["title"]) ? $_GET["title"] : NULL;
+    $_SESSION['auther'] = isset($_GET["auther"]) ? $_GET["auther"] : NULL;
   }
 
   //POSTを受信したとき
@@ -28,31 +30,34 @@
     validateToken();
     
     //書籍名が入力されているか確認
-    if(isset($_POST["title"])){
+    if($_POST["title"]!=""){
       $title = $_POST["title"];
+      $_SESSION['title'] = $_POST["title"];
     }else{
       $errors['title'] = "書籍名を入力してください";
     }
 
     //著者が入力されているか確認
-    if(isset($_POST["auther"])){
-      $title = $_POST["auther"];
+    if($_POST["auther"]!=""){
+      $auther = $_POST["auther"];
+      $_SESSION['auther'] = $_POST["auther"];
     }else{
       $errors['auther'] = "著者を入力してください";
     }
     
     //コメントが入力されているか確認
-    if(isset($_POST["comment"])){
-      $title = $_POST["comment"];
+    if($_POST["comment"]!=""){
+      $comment = $_POST["comment"];
+      $_SESSION['comment'] = $_POST["comment"];
     }else{
       $errors['comment'] = "習得したいことを入力してください";
     }
 
     //期日が入力されているか確認
-    if(isset($_POST["date"])){
-      $title = $_POST["date"];
+    if($_POST["deadline"]!=""){
+      $deadline = $_POST["deadline"];
     }else{
-      $errors['date'] = "いつまでに読むか入力してください";
+      $errors['deadline'] = "いつまでに読むか決めてください";
     }
 
     //全て記入されていれば、既に登録された本ではないか確認
@@ -67,7 +72,7 @@
       $result = $stm->fetch(PDO::FETCH_ASSOC);
       
       if(isset($result["post_id"])){
-        $errors['book_dupli'] = "エラー：同じ本は2回登録できません";
+        $errors['book_dupli'] = "その本は既に本棚に登録されています。同じ本は2回登録できません";
       }
       
       //問題がないので正常に書き込み
@@ -77,14 +82,18 @@
         $sql -> bindParam(':title', $title, PDO::PARAM_STR);
         $sql -> bindParam(':auther', $auther, PDO::PARAM_STR);
         $sql -> bindParam(':comment', $comment, PDO::PARAM_STR);
-        $sql -> bindParam(':deadline', $deadline->format('Y-m-d') , PDO::PARAM_STR);
+        $sql -> bindParam(':deadline', $deadline, PDO::PARAM_STR);
         $sql -> bindParam(':id', $_SESSION['id'], PDO::PARAM_STR);
         $sql -> bindParam(':name', $_SESSION['name'], PDO::PARAM_STR);
-        $sql -> bindParam(':public', $public, PDO::PARAM_INT);
+        $sql -> bindParam(':public', $_POST['public'], PDO::PARAM_INT);
         $sql -> execute();
-        echo "「".$title."」を本棚に登録しました。<br>";
-      }
+        echo "<p>「".$title."」を本棚に登録しました。<br></p>";
 
+        //書き込み情報セッションの削除
+        $_SESSION['title'] = "";
+        $_SESSION['auther'] = "";
+        $_SESSION['comment'] = "";
+      }
     } 
   }
 ?>
@@ -99,12 +108,12 @@
 <!-- POST送信部 -->
 <div class="box_form">
   <form action="" method="post">
-    <p><laber>書籍名　　　　：<input type="text" name="title" value="<?=h($title)?>" placeholder="本のタイトルを入力"></label></p>
-    <p><laber>著者　　　　　：<input type="text" name="auther" value="<?=h($auther)?>" placeholder="第一著者を入力"></label></p>
-    <p><laber>習得したいこと：<textarea name="comment" cols="60" rows="5" placeholder="目標を入力"></textarea></laber></p>
-    <p><label>いつまでに読む：<input name="date" type="date"></laber></p>
+    <p><laber>書籍名　　　　：<input type="text" name="title" value="<?=h($_SESSION['title'])?>" placeholder="本のタイトルを入力"></label></p>
+    <p><laber>著者　　　　　：<input type="text" name="auther" value="<?=h($_SESSION['auther'])?>" placeholder="第一著者を入力"></label></p>
+    <p><laber>学習したいこと：<textarea name="comment" cols="60" rows="5" placeholder="できるだけ具体的に書くと学習に取り組みやすいでしょう"><?= h($_SESSION["comment"]); ?></textarea></laber></p>
+    <p><label>いつまでに読む：<input type="date" name="deadline"  value="<?=h($_SESSION['deadline '])?>"></laber></p>
     <p><laber>公開設定　　　　<input type="radio" name="public" value="1" checked>公開する</laber>
-    <laber><input type="radio" name="public" value="0">公開しない</laber></p>
+       <laber>                <input type="radio" name="public" value="0">        公開しない</laber></p>
     <br>
     <input type="submit" name="post" class="submit" value="読み始める"><br>
     <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">

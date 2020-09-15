@@ -55,21 +55,23 @@
   //確認が押された時
   if(isset($_POST['btn_confirm'])){
     
-    //メアドが入力されているか確認
-    if(isset($_POST['mead'])){
-      $mead = $_POST['mead'];
-    }else{
-      $errors['mead'] = 'メールアドレスが未入力です。';
-    } 
-
     //パスが入力されているか確認
-    if(isset($_POST['pass'])){
-      $pass = $_POST['pass'];
-      $password_hide = str_repeat('*', strlen($pass));
+    if($_POST['pass']!=""){
+      $_SESSION['pass'] = $_POST['pass'];
+      $password_hide = str_repeat('*', strlen($_POST['pass']));
     }else{
       $errors['pass'] = 'パスワードが未入力です。';
     }
+
+    //ユーザーネームが入力されているか確認
+    if($_POST['name']!=""){
+      $_SESSION['name']  = $_POST['name'];
+    }else{
+      $errors['name'] = 'ユーザーネームが未入力です。';
+    } 
   }
+
+    
 
   //登録が押された時
   if(isset($_POST['btn_submit']) && count($errors) === 0){
@@ -118,7 +120,7 @@
     <form action="<?= $_SERVER['SCRIPT_NAME'] ?>?urltoken=<?= $urltoken; ?>" method="post">
       <p>メールアドレス：<?= h($_SESSION['mead']); ?></p>
       <p>パスワード　　：<?= $password_hide; ?></p>
-      <p>ユーザーネーム：<?= h($name); ?></p>
+      <p>ユーザーネーム：<?= h($_POST['name']); ?></p>
       
       <input type="submit" name="btn_back" class="btn_back" value="戻る">
       <input type="hidden" name="token" value="<?= $_POST['token'] ?>">
@@ -128,25 +130,28 @@
 
 <?php else: ?>
 <!-- page_1 登録画面 -->
-	<?php if(count($errors) > 0): ?>
-       <?php
-       //エラーがあれば表示
-       foreach($errors as $error){
-           echo "<p class='error'>".$error."</p>";
-       }
-       ?>
-   <?php endif; ?>
-    <?php if(!isset($errors['urltoken_timeover'])): ?>
-      <div class="box_form">
-        <form action="<?= $_SERVER['SCRIPT_NAME'] ?>?urltoken=<?= $urltoken; ?>" method="post">
-          <p>メールアドレス：<?= h($mead);?></p>
-          <p><label>パスワード　　：<input type="password" name="pass"></label></p>
-          <p><label>ユーザーネーム：<input type="text" name="name" value="<?php if( !empty($_SESSION['name']) ){ echo $_SESSION['name']; } ?>"></label></p>
-          <input type="hidden" name="token" value="<?=$token?>">
-          <input type="submit" name="btn_confirm" class="submit" value="確認">
-        </form>
-      </div>
-		<?php endif ?>
+  <?php 
+    //エラーがあれば表示
+    if(count($errors) > 0){
+      foreach($errors as $error){
+        echo "<p class='error'>".$error."</p>";
+      }
+    }  
+  ?>
+  
+
+  <?php if(!isset($errors['urltoken_timeover'])): ?>
+    <div class="box_form">
+      <form action="<?= $_SERVER['SCRIPT_NAME'] ?>?urltoken=<?= $urltoken; ?>" method="post">
+        <p>メールアドレス：<?= h($mead);?></p>
+        <p><label>パスワード　　：<input type="password" name="pass"></label></p>
+        <p><label>ユーザーネーム：<input type="text" name="name" value="<?php if( !empty($_SESSION['name']) ){ echo $_SESSION['name']; } ?>"></label></p>
+        <input type="hidden" name="token" value="<?=$token?>">
+        <input type="submit" name="btn_confirm" class="submit" value="確認">
+      </form>
+    </div>
+  <?php endif ?>
+    
 <?php endif; ?>
 
 

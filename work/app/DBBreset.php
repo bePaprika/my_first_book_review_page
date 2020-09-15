@@ -9,8 +9,10 @@ $results = $stmt->fetchAll();
 foreach ($results as $row){
   echo $row['post_id'].' , ';
   echo $row['title'].' , ';
+  echo $row['auther'].' , ';
   echo $row['first'].' , ';
   echo $row['comment'].' , ';
+  echo $row['deadline'].' , ';
   echo $row['name'].' , ';
   echo $row['post_at'].' , ';
   echo $row['fin'].' , ';
@@ -28,8 +30,10 @@ $sql = "CREATE TABLE IF NOT EXISTS Data"
 ." ("
 . "post_id INT AUTO_INCREMENT PRIMARY KEY," //投稿ID
 . "title TEXT,"   //書籍名
+. "auther TEXT,"   //著者名
 . "first INT," //初投稿かどうか 1:初投稿
 . "comment TEXT,"  //書籍へのコメント
+. "deadline DATETIME," //いつまでに読むか
 . "id INT," //ユーザーid
 . "name char(128)," //ユーザー名
 . "post_at DATETIME," //書き込み日時

@@ -1,19 +1,34 @@
+/* 上 右 下 左 */
 html{
-  min-width: 750px;
+  min-width: 850px;
   max-width: 100px;
+  height: 100%;
   margin: 0 auto;
-  background: #eee;
+  background: #c5c8c4;
 }
 
 body{
-  color: #4d4150;
+  
   font-family: Verdana, sans-serif;
   margin: 0;
+  height: 100%;
+  display: flex;
+  flex-flow: column;
+  min-height: 100%;
 }
 
 header{
   background-color: #efefef;
-  padding: 10px;
+}
+
+main{
+  background-color: white;
+  color: #4d4150;
+  flex: 1;
+}
+
+textarea { 
+  vertical-align: top; 
 }
 
 .container{
@@ -25,7 +40,6 @@ header{
 
 .logo{
   margin-left: 30px;
-  
 }
 
 .link_logo:link, .link_logo:visited, .link_logo:active{
@@ -41,9 +55,7 @@ header{
 }
 
 .info{
-  /* background-color: tomato; */
-  margin: 0 0 0 auto;
-  
+  margin: 0 20px 0 auto;
 }
 
 .info ul{
@@ -53,12 +65,10 @@ header{
   list-style-type: none;
   display: flex;
   /* align-items: center; */
-  
 }
 
 .info ul li{
   margin-right: 10px;
-  
 }
 
 .button1{
@@ -82,7 +92,6 @@ header{
   text-decoration: none;
   border-radius: 10px;
   padding: 10px;
-  
 }
 
 .button2:hover{
@@ -120,15 +129,16 @@ p{
   border-width: 1px;
   border-style: solid;
   border-color: #C3B39C;
+  border-radius: 2px;
   margin: 10px;
   margin-left: 30px;
   padding: 10px;
-  
 }
 
 .box_form{
   width: 700px;
   background-color: #efefef;
+  border-radius: 2px;
   margin: 10px;
   margin-left: 30px;
   padding: 10px;
@@ -186,15 +196,18 @@ p{
   background-color: #739488;
 }
 
-.booklist{
+.book_list{
   list-style-type: none
 }
 
 
-footer p{
+.footer{
+  background-color: white;
   text-align: center;
   font-size: 14px;
-  margin-bottom: 60px;
+  padding: 30px 0;
+  margin-left: 0;
+  bottom: 0;
   color: #C3B39C;
 }
 

@@ -12,6 +12,7 @@ echo "<hr>";
 
 //Pre登録者一覧
 echo "Pre登録者一覧<br>";
+echo "id /メアド /登録日時 /0:未登録 1:登録済 /URLトークン<br>";
 $sql = 'SELECT * FROM Pre';
 $stmt = $pdo->query($sql);
 $results = $stmt->fetchAll();
@@ -26,6 +27,7 @@ echo "<hr>";
 
 //Accounts登録者一覧
 echo "Accounts登録者一覧<br>";
+echo "id /ユーザーネーム /メアド /パスハッシュ<br>";
 $sql = 'SELECT * FROM Accounts';
 $stmt = $pdo->query($sql);
 $results = $stmt->fetchAll();
