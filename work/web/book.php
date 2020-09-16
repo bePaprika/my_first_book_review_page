@@ -1,12 +1,13 @@
 <?php
   //ok
+  require("../app/function.php");
+  $tab = "掲示板 ".h($_GET["title"])." - ";
   $intro = "勉強のための読書を応援し、読みやすく身になる書籍を共有するサイトです";
   $errors = array();
 
   require("../../sec_info.php");
-  require("../app/function.php");
   include("../app/_parts/_header.php");
-  $tab = "掲示板 ".h($_GET["title"])." - ";
+  
   createToken();
 ?>
 
@@ -50,8 +51,8 @@
     else{$fin=0;$dis=1;}
 
     //データベースに書き込む
-    $sql = $pdo -> prepare("INSERT INTO Data (title,auther,first,comment,deadline,id,name,post_at,fin,dis,public)
-                            VALUES(:title,:auther,0,:comment,0,:id,:name,now(),:fin,:dis,:public)");
+    $sql = $pdo -> prepare("INSERT INTO Data (title,auther,first,comment,id,name,post_at,fin,dis,public)
+                            VALUES(:title,:auther,0,:comment,:id,:name,now(),:fin,:dis,:public)");
     $sql -> bindParam(':title', $title, PDO::PARAM_STR);
     $sql -> bindParam(':auther', $auther, PDO::PARAM_STR);
     $sql -> bindParam(':comment', $comment, PDO::PARAM_STR);
@@ -70,7 +71,7 @@
 <h2><?= h($title)." [".h($auther)." 著]"; ?> </h2>
 
 <!-- この本に対する皆のコメントを表示 -->
-<h3>みんなの投稿</h3>
+<h3>みんなの公開投稿</h3>
 <?php
   $sql = "SELECT * FROM Data WHERE title = :title AND auther = :auther AND public = 1 ORDER BY post_id DESC"; 
   $stmt = $pdo->prepare($sql);
@@ -86,12 +87,11 @@
       if($row['first']==1){echo "学習したいこと：<br>";}
       else{echo "コメント：<br>";}
       echo "<p style='white-space: pre-wrap';>".h($row['comment'])."</p>";
-      echo "<br>";
       //投稿者
       echo '投稿者： '.h($row['name']).'<br>';
       //時刻
       $date = date_create($row['post_at']);
-      echo "投稿日時：".date_format($date, 'Y/m/d　H:i');
+      echo "投稿日時：".date_format($date, 'Y/m/d　H:i:s');
       //読書の状態
       if($row['fin']==1){echo "　読了　";}
       elseif($row['dis']==1){echo "　挫折　";}

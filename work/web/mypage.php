@@ -19,9 +19,9 @@
 </div>
 
 
-<h2><a href="newpost.php" class="link3">新しい本を読み始める</a>
+<h3><a href="newpost.php" class="link3">新しい本を読み始める</a></h3>
 
-<h2>本の続きを記録する</h2>
+<h3>本の続きを記録する</h3>
 <!-- DBから自分の投稿だけ選択 -->
 <?php
   // 重複を許さず最近読んだ本を選択
@@ -44,7 +44,7 @@
 </ul>
 
 
-<h2>あなたの最近の読書</h2>
+<h3>あなたの最近の読書</h3>
 
 <?php
   // DBから自分の投稿だけ選択
@@ -68,7 +68,6 @@
       if($row['first']==1){echo "期待すること：<br>";}
       else{echo "コメント　　：<br>";}
       echo "<p style='white-space: pre-wrap';>".h($row['comment'])."</p>";
-      echo "<br>";
       //時刻
       $date = date_create($row['post_at']);
       echo "投稿日時：".date_format($date, 'Y/m/d　H:i');

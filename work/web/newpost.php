@@ -16,6 +16,7 @@
 
 <!-- POST受信部 -->
 <?php
+  $_SESSION['comment'] = isset($_SESSION['comment']) ? $_SESSION['comment'] : NULL;
   //GETで本のタイトルと著者が渡された場合、GETデータを変数に入れる
   if (isset($_GET)){
     $title = isset($_GET["title"]) ? $_GET["title"] : NULL;
@@ -73,6 +74,22 @@
       
       if(isset($result["post_id"])){
         $errors['book_dupli'] = "その本は既に本棚に登録されています。同じ本は2回登録できません";
+      }
+
+      //書籍データベースに登録されているか確認
+      $sql = "SELECT book_id FROM Books WHERE title=:title AND auther=:auther";
+      $stm = $pdo->prepare($sql);
+      $stm->bindValue(':title', $title, PDO::PARAM_STR);
+      $stm->bindValue(':auther', $auther, PDO::PARAM_STR);
+      $stm->execute();
+      $result = $stm->fetch(PDO::FETCH_ASSOC);
+
+      //登録されていない本ならばBooksに追加する
+      if(isset($result["book_id"])){
+        $sql = $pdo -> prepare("INSERT INTO Books (title,auther) VALUES(:title,:auther)");
+        $sql -> bindParam(':title', $title, PDO::PARAM_STR);
+        $sql -> bindParam(':auther', $auther, PDO::PARAM_STR);
+        $sql -> execute();
       }
       
       //問題がないので正常に書き込み

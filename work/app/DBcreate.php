@@ -39,4 +39,15 @@ $sql = "CREATE TABLE IF NOT EXISTS Data"
 . "public INT" //公開ダミー  1:公開
 .");";
 $stmt = $pdo->query($sql);
+
+//書籍データベース
+$sql = "CREATE TABLE IF NOT EXISTS Books"
+." ("
+. "book_id INT AUTO_INCREMENT PRIMARY KEY," //投稿ID
+. "title TEXT,"   //書籍名
+. "auther TEXT,"   //著者名
+. "ISBN TEXT"   //ISBN
+.");";
+$stmt = $pdo->query($sql);
 ?>
+

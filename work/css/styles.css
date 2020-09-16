@@ -14,7 +14,6 @@ body{
   display: flex;
   flex-flow: column;
   min-height: 100%;
-  padding: 20px;
 }
 
 header{
@@ -24,6 +23,7 @@ header{
 main{
   background-color: white;
   color: #4d4150;
+  padding: 20px;
   flex: 1;
 }
 
@@ -32,14 +32,13 @@ textarea {
 }
 
 .container{
-  /* background-color: pink; */
   margin-right: auto;
   margin-left: auto;
   display: flex;
 }
 
 .logo{
-  margin-left: 30px;
+  margin-left: 40px;
 }
 
 .link_logo:link, .link_logo:visited, .link_logo:active{
@@ -93,7 +92,6 @@ textarea {
   border-radius: 10px;
   padding: 10px;
 }
-
 .button2:hover{
   background-color: #739488;
 }
@@ -121,7 +119,7 @@ p{
   color: #efefef;
   background-color: #7f6c68;
   margin: 0;
-  padding-left: 30px;
+  text-align: center
 }
 
 .box{
@@ -130,8 +128,9 @@ p{
   border-style: solid;
   border-color: #C3B39Ccc;
   border-radius: 2px;
-  margin: 10px;
-  margin-left: 30px;
+  margin: auto;
+  /* margin: 10px;
+  margin-left: 30px; */
   padding: 20px;
 }
 
@@ -139,8 +138,9 @@ p{
   width: 700px;
   background-color: #efefef;
   border-radius: 2px;
-  margin: 10px;
-  margin-left: 30px;
+  margin: auto;
+  /* margin: 10px;
+  margin-left: 30px; */
   padding: 20px;
 }
 
@@ -160,12 +160,11 @@ p{
 /* 先頭へ戻るのリンク */
 .link2:link, .link2:visited, .link2:hover, .link2:active{
   color: #4d4150;
-  font-size: 19px;
 }
 
 /* 本を読み始めるのリンク */
 .link3:link, .link3:visited, .link3:hover, .link3:active{
-  color: #7f6c68;
+  color: #4d4150;
 }
 
 /* 進行系ボタン */
@@ -196,10 +195,24 @@ p{
   background-color: #739488;
 }
 
-.book_list{
-  list-style-type: none
+/* 検索ボタン */
+.btn_search{
+  border-style: none;
+  color: white;
+  font-weight: bold;
+  background-color: #739488cc;
+  border-radius: 4px;
+}
+.btn_search:hover{
+  background-color: #739488;
 }
 
+
+.book_list{
+  color: #7f6c68;
+  list-style-type: square;
+  margin-left: 30px;
+}
 
 .footer{
   background-color: white;

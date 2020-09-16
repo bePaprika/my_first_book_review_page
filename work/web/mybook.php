@@ -40,7 +40,7 @@
 <!-- 本のタイトルを表示 -->
 
 <h2> <?= h($_GET["title"]).' ['.h($_GET["auther"]).' 著]'; ?></h2>
-<?= '<p><a href="book.php?title='.h($_GET["title"]).'&auther='.h($_GET["title"]).'" class="link2"> この本の掲示板へ </a></p>';?> 
+<?= '<p><a href="book.php?title='.h($_GET["title"]).'&auther='.h($_GET["auther"]).'" class="link2"> この本の掲示板へ </a></p>';?> 
 
 
 
@@ -55,8 +55,8 @@
     else                          {$fin=0;$dis=1;}
 
     //データベースに書き込む
-    $sql = $pdo -> prepare("INSERT INTO Data (title,auther,first,comment,deadline,id,name,post_at,fin,dis,public)
-                            VALUES(:title,:auther,0,:comment,0,:id,:name,now(),:fin,:dis,:public)");
+    $sql = $pdo -> prepare("INSERT INTO Data (title,auther,first,comment,id,name,post_at,fin,dis,public)
+                            VALUES(:title,:auther,0,:comment,:id,:name,now(),:fin,:dis,:public)");
     $sql -> bindParam(':title',   $_GET["title"],    PDO::PARAM_STR);
     $sql -> bindParam(':auther',  $_GET["auther"],   PDO::PARAM_STR);
     $sql -> bindParam(':comment', $_POST["comment"], PDO::PARAM_STR);
@@ -87,7 +87,7 @@
     <laber>          <input type="radio" name="public" value="0"        >公開しない</laber>
     <br>
     <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">
-    <input type="submit" name="post" class="submit" value="投稿"><br><br>
+    <input type="submit" name="post" class="submit" value="投稿"><br>
   </form>
 </div>
 
@@ -112,7 +112,7 @@
       echo "<p style='white-space: pre-wrap ';>".h($row['comment'])."</p>";
       //時刻
       $date = date_create($row['post_at']);
-      echo "投稿日時：".date_format($date, 'Y/m/d　H:i');
+      echo "投稿日時：".date_format($date, 'Y/m/d　H:i:s');
       //読書の状態
       if($row['fin']==1){echo "　読了　";}
       elseif($row['dis']==1){echo "　挫折　";}

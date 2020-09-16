@@ -16,8 +16,9 @@
     $_SESSION['message'] = "";
   }
 ?>
+<h2>ようこそ</h2>
 
-<h2>新着レビュー</h2>
+<h3>新着レビュー</h3>
 
 <?php
   $sql = 'SELECT * FROM Data WHERE public = 1 ORDER BY post_id DESC LIMIT 5';
@@ -30,19 +31,18 @@
       //タイトル
       $title = $row['title'];
       $auther = $row['auther'];
-      echo '<p>書籍：　<a href="book.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).'</a></p>';
+      echo '書籍：　<a href="book.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).'</a><br>';
       //著者
-      echo '<p>著者：　'.h($auther).'</p>';
+      echo '著者：　'.h($auther).'<br>';
       //コメント
       if($row['first']==1){echo '習得したいこと：<br>';}
       else{echo 'コメント：<br>';}
-      echo h($row['comment']).'<br>';
-      echo '<br>';
+      echo "<p style='white-space: pre-wrap ';>".h($row['comment'])."</p>";
       //投稿者
-      echo '投稿者： '.h($row['name']).'<br>';
+      echo '投稿者：　'.h($row['name']).'<br>';
       //時刻
       $date = date_create($row['post_at']);
-      echo "投稿日時：".date_format($date, 'Y/m/d　H:i');
+      echo "投稿日時：　".date_format($date, 'Y/m/d　H:i:s');
       //読書の状態
       if($row['fin']==1){echo "　読了　";}
       elseif($row['dis']==1){echo "　挫折　";}
@@ -53,11 +53,40 @@
   }
 ?>
 
+<h3>本を検索する</h3>
+  <?php
+    if(isset($_POST['btn_search'])){
+      $search = "'%".$_POST['btn_search']."%'";
+      //データベースからタイトルに検索ワードが含まれる本を探す
+      $sql = 'SELECT * FROM Books WHERE title like :search';
+      // $stmt = $pdo->query($sql);
+      $stmt = $pdo->prepare($sql);
+      $stmt->bindParam(':search', $search, PDO::PARAM_INT);
+      $stmt->execute();    
+      $results = $stmt->fetchAll();
+  ?>
+  <!-- 検索結果を表示 -->
+  <ul class="book_list">
+  <?php
+      foreach ($results as $row){
+        $title = $row['title'];
+        $auther = $row['auther'];
+        echo '<li><a href="mybook.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).' ['.h($auther).']</a></li>'; 
+      }
+    }
+  ?>
+  </ul>
 
+  
+  
 
-<h2>本を検索する</h2>
+  
+  
 
-
+<form action="" method="post">
+  <input type="text" name="search" placeholder="タイトル">
+  <input type="submit" name="btn_search" class="btn_search" value="検索"><br>
+</form>
 
 <p><a href="#top" class="link2">先頭へ戻る</a></p>
 
