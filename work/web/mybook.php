@@ -1,13 +1,14 @@
 <?php
   //ok
+  require("../app/function.php");
+  require("../../sec_info.php");
+
   $tab = "読書記録 ".h($_GET["title"])." - ";
   $intro = "読み切ることよりも、設定した目的を達成することを心がけましょう";
   $errors = array();
-
-  require("../../sec_info.php");
-  require("../app/function.php");
+  
   include("../app/_parts/_header.php");
-
+  
   createToken();
   validateAccount();
 ?>
@@ -37,8 +38,11 @@
 ?>
 
 <!-- 本のタイトルを表示 -->
-<h2><?= h($_GET["title"]).' ['.h($_GET["title"]).' 著]'; ?></h2>
+
+<h2> <?= h($_GET["title"]).' ['.h($_GET["auther"]).' 著]'; ?></h2>
 <?= '<p><a href="book.php?title='.h($_GET["title"]).'&auther='.h($_GET["title"]).'" class="link2"> この本の掲示板へ </a></p>';?> 
+
+
 
 <!-- POST受信 -->
 <?php
@@ -103,12 +107,12 @@
     <div class="box">
       <?php
       //コメント
-      if($row['first']==1){echo "習得したいこと：";}
-      else{echo "コメント：";}
-      echo h($row['comment'])."<br>";
-      echo "<br>";
+      if($row['first']==1){echo "学習したいこと：<br>";}
+      else{echo "コメント：<br>";}
+      echo "<p style='white-space: pre-wrap ';>".h($row['comment'])."</p>";
       //時刻
-      echo "日時：".date_format($row['post_at'], 'Y-m-d');
+      $date = date_create($row['post_at']);
+      echo "投稿日時：".date_format($date, 'Y/m/d　H:i');
       //読書の状態
       if($row['fin']==1){echo "　読了　";}
       elseif($row['dis']==1){echo "　挫折　";}

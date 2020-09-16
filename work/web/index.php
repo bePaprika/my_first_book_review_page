@@ -41,7 +41,8 @@
       //投稿者
       echo '投稿者： '.h($row['name']).'<br>';
       //時刻
-      echo '時刻　：'.date_format($row['post_at'], 'Y-m-d');
+      $date = date_create($row['post_at']);
+      echo "投稿日時：".date_format($date, 'Y/m/d　H:i');
       //読書の状態
       if($row['fin']==1){echo "　読了　";}
       elseif($row['dis']==1){echo "　挫折　";}

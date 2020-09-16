@@ -1,13 +1,12 @@
 <?php
   //ok
-  $tab = "掲示板 ".h($_GET["title"])." - ";
   $intro = "勉強のための読書を応援し、読みやすく身になる書籍を共有するサイトです";
   $errors = array();
 
   require("../../sec_info.php");
   require("../app/function.php");
   include("../app/_parts/_header.php");
-
+  $tab = "掲示板 ".h($_GET["title"])." - ";
   createToken();
 ?>
 
@@ -84,14 +83,15 @@
     <div class="box">
       <?php
       //コメント
-      if($row['first']==1){echo "習得したいこと：<br>";}
+      if($row['first']==1){echo "学習したいこと：<br>";}
       else{echo "コメント：<br>";}
-      echo h($row['comment'])."<br>";
+      echo "<p style='white-space: pre-wrap';>".h($row['comment'])."</p>";
       echo "<br>";
       //投稿者
       echo '投稿者： '.h($row['name']).'<br>';
       //時刻
-      echo "日時　：".date_format($row['post_at'], 'Y-m-d');
+      $date = date_create($row['post_at']);
+      echo "投稿日時：".date_format($date, 'Y/m/d　H:i');
       //読書の状態
       if($row['fin']==1){echo "　読了　";}
       elseif($row['dis']==1){echo "　挫折　";}

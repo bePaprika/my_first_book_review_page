@@ -8,13 +8,13 @@ html{
 }
 
 body{
-  
   font-family: Verdana, sans-serif;
   margin: 0;
   height: 100%;
   display: flex;
   flex-flow: column;
   min-height: 100%;
+  padding: 20px;
 }
 
 header{
@@ -128,11 +128,11 @@ p{
   width: 700px;
   border-width: 1px;
   border-style: solid;
-  border-color: #C3B39C;
+  border-color: #C3B39Ccc;
   border-radius: 2px;
   margin: 10px;
   margin-left: 30px;
-  padding: 10px;
+  padding: 20px;
 }
 
 .box_form{
@@ -141,8 +141,7 @@ p{
   border-radius: 2px;
   margin: 10px;
   margin-left: 30px;
-  padding: 10px;
-  padding-bottom: 20px;
+  padding: 20px;
 }
 
 /* ボックス内部のp */
@@ -161,6 +160,7 @@ p{
 /* 先頭へ戻るのリンク */
 .link2:link, .link2:visited, .link2:hover, .link2:active{
   color: #4d4150;
+  font-size: 19px;
 }
 
 /* 本を読み始めるのリンク */
