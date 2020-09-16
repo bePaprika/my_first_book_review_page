@@ -1,7 +1,7 @@
 <?php
   //ok
   $tab = "メール認証 - ";
-  $intro = "勉強のための読書を応援し、読みやすく身になる書籍を共有するサイトです";
+  $intro = "勉強のための読書を応援し、読みやすく身になる書籍を共有するサイト";
 
   require("../../sec_info.php");
   require("../app/function.php");

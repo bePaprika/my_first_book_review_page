@@ -8,17 +8,10 @@
   $errors = array();
   
   include("../app/_parts/_header.php");
-  
-  createToken();
+  createToken(); 
   validateAccount();
 ?>
 
-<?php
-  //エラーがある場合ここでメッセージを表示する
-  if(count($errors) > 0){
-    foreach($errors as $error){ echo "<p>$error</p>"; }
-  }
-?>
 
 <!-- 正しい遷移(title,autherが指定されている)か確認 -->
 <?php
@@ -35,44 +28,67 @@
       exit();
     }
   }
+
+  $title = $_GET["title"];
+  $auther = $_GET["auther"];
 ?>
-
-<!-- 本のタイトルを表示 -->
-
-<h2> <?= h($_GET["title"]).' ['.h($_GET["auther"]).' 著]'; ?></h2>
-<?= '<p><a href="book.php?title='.h($_GET["title"]).'&auther='.h($_GET["auther"]).'" class="link2"> この本の掲示板へ </a></p>';?> 
-
 
 
 <!-- POST受信 -->
 <?php
-  if (isset($_POST["comment"])) {
-    validateToken(); 
+  //投稿が押されたか
+  if (isset($_POST["post"])) {
+    //コメントが入力されているか
+    if($_POST["comment"]!=""){
+      //トークンが正しいか
+      if (empty($_SESSION['token']) || $_SESSION['token'] !== filter_input(INPUT_POST, 'token')) {
+        $errors['double_click'] = "更新ボタンを押しても多重投稿しません";
+      }
+      else{
+        $status = $_POST["status"];
+        $comment = $_POST["comment"];
+        $public = $_POST["public"];
 
-    //状態の割り当て
-    if    ($_POST["status"]==="0"){$fin=0;$dis=0;}
-    elseif($_POST["status"]==="1"){$fin=1;$dis=0;}
-    else                          {$fin=0;$dis=1;}
-
-    //データベースに書き込む
-    $sql = $pdo -> prepare("INSERT INTO Data (title,auther,first,comment,id,name,post_at,fin,dis,public)
-                            VALUES(:title,:auther,0,:comment,:id,:name,now(),:fin,:dis,:public)");
-    $sql -> bindParam(':title',   $_GET["title"],    PDO::PARAM_STR);
-    $sql -> bindParam(':auther',  $_GET["auther"],   PDO::PARAM_STR);
-    $sql -> bindParam(':comment', $_POST["comment"], PDO::PARAM_STR);
-    $sql -> bindParam(':id',      $_SESSION['id'],   PDO::PARAM_INT);
-    $sql -> bindParam(':name',    $_SESSION['name'], PDO::PARAM_STR);
-    $sql -> bindParam(':fin',     $fin,              PDO::PARAM_INT);
-    $sql -> bindParam(':dis',     $dis,              PDO::PARAM_INT);
-    $sql -> bindParam(':public',  $_POST["public"],  PDO::PARAM_INT);
-    $sql -> execute();
-
-    $errors['posted'] = "「".h($_GET["title"])."」に読書記録を追加しました。";
+        //状態の割り当て
+        if    ($status==="0"){$fin=0;$dis=0;}
+        elseif($status==="1"){$fin=1;$dis=0;}
+        else                 {$fin=0;$dis=1;}
+    
+        //データベースに書き込む
+        $sql = $pdo -> prepare("INSERT INTO Data (title,auther,first,comment,id,name,post_at,fin,dis,public)
+                                VALUES(:title,:auther,0,:comment,:id,:name,now(),:fin,:dis,:public)");
+        $sql -> bindParam(':title',   $title,            PDO::PARAM_STR);
+        $sql -> bindParam(':auther',  $auther,           PDO::PARAM_STR);
+        $sql -> bindParam(':comment', $_POST["comment"], PDO::PARAM_STR);
+        $sql -> bindParam(':id',      $_SESSION['id'],   PDO::PARAM_INT);
+        $sql -> bindParam(':name',    $_SESSION['name'], PDO::PARAM_STR);
+        $sql -> bindParam(':fin',     $fin,              PDO::PARAM_INT);
+        $sql -> bindParam(':dis',     $dis,              PDO::PARAM_INT);
+        $sql -> bindParam(':public',  $public,           PDO::PARAM_INT);
+        $sql -> execute();
+    
+        $errors['posted'] = "「".h($_GET["title"])."」に読書記録を追加しました。";
+        $_SESSION['token'] = "";
+      }
+    }
+    else{
+      $errors['comment'] = "読書記録を記入してください";
+    }
   }
-  else{
-    $errors['comment'] = "読書記録を記入してください";
+  
+?>
+
+<?php
+  //エラーがある場合ここでメッセージを表示する
+  if(count($errors) > 0){
+    foreach($errors as $error){ echo "<p>$error</p>"; }
   }
 ?>
+
+<!-- 本のタイトルを表示 -->
+<h2> <?= h($_GET["title"]).' ['.h($_GET["auther"]).' 著]'; ?></h2>
+<?= '<p><a href="book.php?title='.h($_GET["title"]).'&auther='.h($_GET["auther"]).'" class="link2"> この本の掲示板へ </a></p>';?> 
+
 
 <!-- POST送信 -->
 <div class="box_form">
@@ -91,8 +107,8 @@
   </form>
 </div>
 
-<!-- この本に対して自分がしたコメント一覧 -->
-<h2>過去の記録</h2>
+<!-- この本に対する自分のコメントを表示 -->
+<h2>読書記録</h2>
 <?php
   $sql = "SELECT * FROM Data WHERE id = :id AND title = :title AND auther = :auther ORDER BY post_id DESC"; 
   // $stmt = $pdo->query($sql);
@@ -107,7 +123,7 @@
     <div class="box">
       <?php
       //コメント
-      if($row['first']==1){echo "学習したいこと：<br>";}
+      if($row['first']==1){echo "学習目標：<br>";}
       else{echo "コメント：<br>";}
       echo "<p style='white-space: pre-wrap ';>".h($row['comment'])."</p>";
       //時刻

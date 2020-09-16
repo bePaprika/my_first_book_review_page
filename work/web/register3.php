@@ -1,7 +1,7 @@
 <?php
   //ok
   $tab = "本登録ページ - ";
-  $intro = "勉強のための読書を応援し、読みやすく身になる書籍を共有するサイトです";
+  $intro = "勉強のための読書を応援し、読みやすく身になる書籍を共有するサイト";
   $errors = array();
 
   require("../../sec_info.php");
@@ -111,7 +111,7 @@
 
 <!-- page_3 完了画面-->
 <?php if(isset($_POST['btn_submit']) && count($errors) === 0): ?>
-  <h2>ReadTrough 登録ありがとうございます!</h2>
+  <h3>ReadTrough 登録ありがとうございます!</h3>
   <!-- header('Location: https://tb-220261.tech-base.net/TADABON/work/web/register4.php'."?urltoken=".print $urltoken);  -->
 
 <!-- page_2 確認画面-->

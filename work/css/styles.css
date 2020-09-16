@@ -4,7 +4,13 @@ html{
   max-width: 100px;
   height: 100%;
   margin: 0 auto;
-  background: #c5c8c4;
+  /* 背景装飾 */
+  background-color: #856E75;
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+  background-image:
+    radial-gradient(#c5c8c4 20%, transparent 20%),
+    radial-gradient(#4d4150 20%, transparent 20%);
 }
 
 body{
@@ -35,6 +41,12 @@ textarea {
   margin-right: auto;
   margin-left: auto;
   display: flex;
+}
+
+.index{
+  display: block;
+  width: 400px;
+
 }
 
 .logo{
@@ -96,6 +108,13 @@ textarea {
   background-color: #739488;
 }
 
+.intro{
+  color: #efefef;
+  background-color: #7f6c68;
+  margin: 0;
+  text-align: center
+}
+
 
 h1{
   color: #E73825;
@@ -115,20 +134,14 @@ p{
   margin-left: 30px;
 }
 
-.intro{
-  color: #efefef;
-  background-color: #7f6c68;
-  margin: 0;
-  text-align: center
-}
 
 .box{
   width: 700px;
   border-width: 1px;
   border-style: solid;
-  border-color: #C3B39Ccc;
+  border-color: #c3b39c77;
   border-radius: 2px;
-  margin: auto;
+  margin: 15px auto;
   /* margin: 10px;
   margin-left: 30px; */
   padding: 20px;
@@ -138,7 +151,7 @@ p{
   width: 700px;
   background-color: #efefef;
   border-radius: 2px;
-  margin: auto;
+  margin: 15px auto;
   /* margin: 10px;
   margin-left: 30px; */
   padding: 20px;

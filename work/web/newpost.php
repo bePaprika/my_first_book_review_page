@@ -51,7 +51,7 @@
       $comment = $_POST["comment"];
       $_SESSION['comment'] = $_POST["comment"];
     }else{
-      $errors['comment'] = "習得したいことを入力してください";
+      $errors['comment'] = "学習目標を入力してください";
     }
 
     //期日が入力されているか確認
@@ -85,7 +85,7 @@
       $result = $stm->fetch(PDO::FETCH_ASSOC);
 
       //登録されていない本ならばBooksに追加する
-      if(isset($result["book_id"])){
+      if(!isset($result["book_id"])){
         $sql = $pdo -> prepare("INSERT INTO Books (title,auther) VALUES(:title,:auther)");
         $sql -> bindParam(':title', $title, PDO::PARAM_STR);
         $sql -> bindParam(':auther', $auther, PDO::PARAM_STR);
@@ -125,12 +125,12 @@
 <!-- POST送信部 -->
 <div class="box_form">
   <form action="" method="post">
-    <p><laber>書籍名　　　　：<input type="text" name="title" value="<?=h($_SESSION['title'])?>" placeholder="本のタイトルを入力"></label></p>
-    <p><laber>著者　　　　　：<input type="text" name="auther" value="<?=h($_SESSION['auther'])?>" placeholder="第一著者を入力"></label></p>
-    <p><laber>学習したいこと：<textarea name="comment" cols="60" rows="5" placeholder="できるだけ具体的に書くと学習に取り組みやすいでしょう"><?= h($_SESSION["comment"]); ?></textarea></laber></p>
-    <p><label>いつまでに読む：<input type="date" name="deadline"  value="<?=h($_SESSION['deadline '])?>"></laber></p>
-    <p><laber>公開設定　　　　<input type="radio" name="public" value="1" checked>公開する</laber>
-       <laber>                <input type="radio" name="public" value="0">        公開しない</laber></p>
+    <p><laber>書籍名　：<input type="text" name="title" value="<?=h($_SESSION['title'])?>" placeholder="誤字に注意"></label></p>
+    <p><laber>著者　　：<input type="text" name="auther" value="<?=h($_SESSION['auther'])?>" placeholder="空白を含めない"></label></p>
+    <p><laber>学習目標：<textarea name="comment" cols="60" rows="5" placeholder="できるだけ具体的に書くと学習に取り組みやすいでしょう"><?= h($_SESSION["comment"]); ?></textarea></laber></p>
+    <p><label>期日目標：<input type="date" name="deadline"  value="<?=h($_SESSION['deadline '])?>"></laber></p>
+    <p><laber>公開設定  <input type="radio" name="public" value="1" checked>公開する</laber>
+       <laber>          <input type="radio" name="public" value="0">        公開しない</laber></p>
     <br>
     <input type="submit" name="post" class="submit" value="読み始める"><br>
     <input type="hidden" name="token" value="<?= h($_SESSION['token']);?>">

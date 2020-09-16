@@ -2,7 +2,7 @@
   //ok
   require("../app/function.php");
   $tab = "掲示板 ".h($_GET["title"])." - ";
-  $intro = "勉強のための読書を応援し、読みやすく身になる書籍を共有するサイトです";
+  $intro = "勉強のための読書を応援し、読みやすく身になる書籍を共有するサイト";
   $errors = array();
 
   require("../../sec_info.php");
@@ -11,12 +11,6 @@
   createToken();
 ?>
 
-<?php
-  //メッセージがある場合ここでメッセージを表示する
-  if(count($errors) > 0){
-    foreach($errors as $error){ echo "<p>$error</p>"; }
-  }
-?>
 
 <!-- 正しい遷移(title,autherが指定されている)か確認 -->
 <?php
@@ -37,54 +31,108 @@
   $auther = $_GET["auther"];
 ?>
 
+
 <!-- POST受信 -->
 <?php
+  //投稿が押されたか
   if (isset($_POST['post'])) {
-    validateToken();
-    $status = $_POST["status"];
-    $comment = $_POST["comment"];
-    $public = $_POST["public"];
-
-    //状態の割り当て
-    if($status==="0"){$fin=0;$dis=0;}
-    elseif($status==="1"){$fin=1;$dis=0;}
-    else{$fin=0;$dis=1;}
-
-    //データベースに書き込む
-    $sql = $pdo -> prepare("INSERT INTO Data (title,auther,first,comment,id,name,post_at,fin,dis,public)
-                            VALUES(:title,:auther,0,:comment,:id,:name,now(),:fin,:dis,:public)");
-    $sql -> bindParam(':title', $title, PDO::PARAM_STR);
-    $sql -> bindParam(':auther', $auther, PDO::PARAM_STR);
-    $sql -> bindParam(':comment', $comment, PDO::PARAM_STR);
-    $sql -> bindParam(':id', $_SESSION['id'], PDO::PARAM_STR);
-    $sql -> bindParam(':name', $_SESSION['name'], PDO::PARAM_STR);
-    $sql -> bindParam(':fin', $fin, PDO::PARAM_INT);
-    $sql -> bindParam(':dis', $dis, PDO::PARAM_INT);
-    $sql -> bindParam(':public', $public, PDO::PARAM_INT);
-    $sql -> execute();
-
-    $errors['posted'] = "「".h($title)."」にコメントを追加しました。";
+    //コメントが入力されているか
+    if($_POST["comment"]!=""){
+      //トークンが正しいか
+      if (empty($_SESSION['token']) || $_SESSION['token'] !== filter_input(INPUT_POST, 'token')) {
+        $errors['double_click'] = "更新ボタンを押しても多重投稿しません";
+      }
+      else{
+        $status = $_POST["status"];
+        $comment = $_POST["comment"];
+        $public = $_POST["public"];
+    
+        //状態の割り当て
+        if    ($status==="0"){$fin=0;$dis=0;}
+        elseif($status==="1"){$fin=1;$dis=0;}
+        else                 {$fin=0;$dis=1;}
+    
+        //データベースに書き込む
+        $sql = $pdo -> prepare("INSERT INTO Data (title,auther,first,comment,id,name,post_at,fin,dis,public)
+                                VALUES(:title,:auther,0,:comment,:id,:name,now(),:fin,:dis,:public)");
+        $sql -> bindParam(':title',   $title,            PDO::PARAM_STR);
+        $sql -> bindParam(':auther',  $auther,           PDO::PARAM_STR);
+        $sql -> bindParam(':comment', $comment,          PDO::PARAM_STR);
+        $sql -> bindParam(':id',      $_SESSION['id'],   PDO::PARAM_STR);
+        $sql -> bindParam(':name',    $_SESSION['name'], PDO::PARAM_STR);
+        $sql -> bindParam(':fin',     $fin,              PDO::PARAM_INT);
+        $sql -> bindParam(':dis',     $dis,              PDO::PARAM_INT);
+        $sql -> bindParam(':public',  $public,           PDO::PARAM_INT);
+        $sql -> execute();
+    
+        $errors['posted'] = "「".h($title)."」にコメントを追加しました。";
+        $_SESSION['token']= "";
+      }
+    }
+    else{
+      $errors['comment'] = "読書記録を記入してください";
+    }
   }
 ?>
 
-<!-- 本のタイトルを表示 -->
-<h2><?= h($title)." [".h($auther)." 著]"; ?> </h2>
-
-<!-- この本に対する皆のコメントを表示 -->
-<h3>みんなの公開投稿</h3>
 <?php
+  //エラーがある場合ここでメッセージを表示する
+  if(count($errors) > 0){
+    foreach($errors as $error){ echo "<p>$error</p>"; }
+  }
+?>
+<div class="container">
+  <div class="index">
+    <!-- 本のタイトルを表示 -->
+    <h2><?= h($title)." [".h($auther)." 著]"; ?> </h2>
+
+    <!-- この本に対する皆のコメントを表示 -->
+    <h3>みんなの読書状況</h3>
+    <h3>みんなの投稿</h3>
+  </div>
+  <?php
+    $sql = 'SELECT * FROM Data WHERE post_id IN(SELECT MAX(post_id) FROM Data WHERE title = :title AND auther = :auther GROUP BY id)';
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+    $stmt->bindParam(':auther', $auther, PDO::PARAM_STR);
+    $stmt->execute();    
+    $results = $stmt->fetchAll();
+
+    //円グラフようの変数を作成
+    $n1 = 0;  //継続
+    $n2 = 0;  //読了
+    $n3 = 0;  //挫折
+    foreach ($results as $row){
+      if($row['fin']==1){$n2++;}
+      elseif($row['dis']==1){$n3++;}
+      else{$n1++;}
+    }
+    //円グラフを描写
+    $all = $n1 + $n2 +$n3;
+    $p1 = $n1 / $all * 100;
+    $p2 = ($n1+$n2) / $all * 100;
+    require("chart.php");
+  ?>
+
+  
+
+</div>
+
+<?php
+  //この本に対するみんなの投稿を表示
   $sql = "SELECT * FROM Data WHERE title = :title AND auther = :auther AND public = 1 ORDER BY post_id DESC"; 
   $stmt = $pdo->prepare($sql);
   $stmt->bindParam(':title', $title, PDO::PARAM_STR);
   $stmt->bindParam(':auther', $auther, PDO::PARAM_STR);
   $stmt->execute();    
   $results = $stmt->fetchAll();
+
   foreach ($results as $row){
     ?>
     <div class="box">
       <?php
       //コメント
-      if($row['first']==1){echo "学習したいこと：<br>";}
+      if($row['first']==1){echo "学習目標：<br>";}
       else{echo "コメント：<br>";}
       echo "<p style='white-space: pre-wrap';>".h($row['comment'])."</p>";
       //投稿者
@@ -100,6 +148,7 @@
     </div>
     <?php
   }
+
 ?>
 
 

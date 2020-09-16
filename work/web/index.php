@@ -1,7 +1,7 @@
 <?php
   //ok
   $tab = "TOP - ";
-  $intro = "勉強のための読書を応援し、読みやすく身になる書籍を共有するサイトです";
+  $intro = "勉強のための読書を応援し、読みやすく身になる書籍を共有するサイト";
 
   require("../../sec_info.php");
   require("../app/function.php");
@@ -35,7 +35,7 @@
       //著者
       echo '著者：　'.h($auther).'<br>';
       //コメント
-      if($row['first']==1){echo '習得したいこと：<br>';}
+      if($row['first']==1){echo '学習目標：<br>';}
       else{echo 'コメント：<br>';}
       echo "<p style='white-space: pre-wrap ';>".h($row['comment'])."</p>";
       //投稿者
@@ -54,39 +54,44 @@
 ?>
 
 <h3>本を検索する</h3>
-  <?php
-    if(isset($_POST['btn_search'])){
-      $search = "'%".$_POST['btn_search']."%'";
-      //データベースからタイトルに検索ワードが含まれる本を探す
-      $sql = 'SELECT * FROM Books WHERE title like :search';
-      // $stmt = $pdo->query($sql);
-      $stmt = $pdo->prepare($sql);
-      $stmt->bindParam(':search', $search, PDO::PARAM_INT);
-      $stmt->execute();    
-      $results = $stmt->fetchAll();
-  ?>
-  <!-- 検索結果を表示 -->
-  <ul class="book_list">
-  <?php
-      foreach ($results as $row){
-        $title = $row['title'];
-        $auther = $row['auther'];
-        echo '<li><a href="mybook.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).' ['.h($auther).']</a></li>'; 
-      }
-    }
-  ?>
-  </ul>
 
-  
-  
-
-  
-  
-
+<!-- 検索フォーム -->
 <form action="" method="post">
-  <input type="text" name="search" placeholder="タイトル">
+  <input type="text" name="search" placeholder="タイトル" style="margin-left:35px;" >
   <input type="submit" name="btn_search" class="btn_search" value="検索"><br>
 </form>
+
+
+<?php
+  //検索ボタンが押された時
+  if(isset($_POST['btn_search'])){
+    $search = $_POST['search'];
+    //データベースからタイトルに検索ワードが含まれる本を探す
+    $sql = 'SELECT * FROM Books WHERE title like ?';
+    // $stmt = $pdo->query($sql);
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(1, '%' .addcslashes($search, '\_%'). '%', PDO::PARAM_STR);
+    $stmt->execute();    
+    $results = $stmt->fetchAll();
+?>
+<!-- 検索結果を表示 -->
+<ul class="book_list">
+<?php
+    foreach ($results as $row){
+      $title = $row['title'];
+      $auther = $row['auther'];
+      echo '<li><a href="book.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).' ['.h($auther).']</a></li>'; 
+    }
+  }
+?>
+</ul>
+
+  
+  
+
+  
+  
+
 
 <p><a href="#top" class="link2">先頭へ戻る</a></p>
 
