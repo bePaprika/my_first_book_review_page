@@ -42,9 +42,11 @@
     }
     //円グラフを描写
     $all = $n1 + $n2 +$n3;
-    $p1 = $n1 / $all * 100;
-    $p2 = ($n1+$n2) / $all * 100;
-    require("chart.php");
+    if($all != 0){
+      $p1 = $n1 / $all * 100;
+      $p2 = ($n1+$n2) / $all * 100;
+      require("chart.php");
+    }
   ?>
 </div>
 

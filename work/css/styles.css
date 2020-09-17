@@ -5,11 +5,11 @@ html{
   height: 100%;
   margin: 0 auto;
   /* 背景装飾 */
-  background-color: #856E75;
+  background-color: #AACBC1;
   background-size: 30px 30px;
   background-position: 0 0, 15px 15px;
   background-image:
-    radial-gradient(#c5c8c4 20%, transparent 20%),
+    radial-gradient(white 20%, transparent 20%),
     radial-gradient(#4d4150 20%, transparent 20%);
 }
 
