@@ -134,18 +134,17 @@
     <div class="box">
       <?php
       //コメント
-      if($row['first']==1){echo "学習目標：<br>";}
-      else{echo "コメント：<br>";}
+      if($row['first']==1){echo '<div class="small">学習目標：<br></div>';}
       echo "<p style='white-space: pre-wrap';>".h($row['comment'])."</p>";
       //投稿者
-      echo '投稿者： '.h($row['name']).'<br>';
+      echo '<div class="small">投稿者：　'.h($row['name']);
       //時刻
       $date = date_create($row['post_at']);
-      echo "投稿日時：".date_format($date, 'Y/m/d　H:i:s');
+      echo "　　投稿日時：　".date_format($date, 'Y/m/d H:i:s');
       //読書の状態
-      if($row['fin']==1){echo "　読了　";}
-      elseif($row['dis']==1){echo "　挫折　";}
-      echo "<br>";
+      if($row['fin']==1){echo "<div class='fin'>　読了　</div>";}
+      elseif($row['dis']==1){echo "<div class='fail'>　挫折　</div>";}
+      echo '</div>';
       ?>
     </div>
     <?php

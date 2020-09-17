@@ -8,22 +8,22 @@
 			),
 			conic-gradient(
         /* 継続中 */
-				#c5c8c4 0,
-        #c5c8c4 <?=$p1;?>%,
+				#E1E2D6ee 0,
+        #E1E2D6ee <?=$p1;?>%,
         /* 読了 */
-				#BB0009 0,
-        #BB0009 <?=$p2;?>%,
+				#DA471Dee 0,
+        #DA471Dee <?=$p2;?>%,
         /* 挫折 */
-				#739488 0,
-				#739488 100%
+				#008A82ee 0,
+				#008A82ee 100%
 		);
 		position: relative;
 		width: 300px;
 		height: 150px;
 		margin: 15px 34px 0 auto;
-    outline: 1px solid  #c3b39c77;
-    border-color: #c3b39c77;
-    border-radius: 2px;
+    outline: 1px solid #CCB86C77;
+    /* border-color: #CCB86C;
+    border-radius: 2px; */
 	}
 	.pie-chart cite {
     position: absolute;
@@ -53,8 +53,8 @@
 </style>
 <figure class="pie-chart">
 	<figcaption>
-		継続 <?=$n1;?><span style="color:#c5c8c4"></span><br>
-		読了 <?=$n2;?><span style="color:#BB0009"></span><br>
-		挫折 <?=$n3;?><span style="color:#739488"></span>
+		継続 <?=$n1;?><span style="color:#E1E2D6ee"></span><br>
+		読了 <?=$n2;?><span style="color:#DA471Dee"></span><br>
+		挫折 <?=$n3;?><span style="color:#008A82ee"></span>
 	</figcaption>
 </figure>

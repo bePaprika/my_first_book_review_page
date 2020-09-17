@@ -84,16 +84,15 @@
       $auther = $row['auther'];
       echo '書籍名　　：<a href="mybook.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).' ['.h($auther).']</a><br>';
       //コメント
-      if($row['first']==1){echo "学習目標：<br>";}
-      else{echo "コメント：<br>";}
+      if($row['first']==1){echo "<div class='small'>学習目標：<br></div>";}
       echo "<p style='white-space: pre-wrap';>".h($row['comment'])."</p>";
       //時刻
       $date = date_create($row['post_at']);
-      echo "投稿日時：".date_format($date, 'Y/m/d　H:i:s');
+      echo '<div class="small">投稿日時：'.date_format($date, "Y/m/d　H:i:s");
       //読書の状態
-      if($row['fin']==1){echo "　読了　";}
-      elseif($row['dis']==1){echo "　挫折　";}
-      echo "<br>";
+      if($row['fin']==1){echo "<div class='fin'>　読了　</div>";}
+      elseif($row['dis']==1){echo "<div class='fail'>　挫折　</div>";}
+      echo "<br></div>";
       ?>
     </div>
     <?php
