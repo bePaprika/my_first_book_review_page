@@ -1,7 +1,7 @@
 <?php
   //ok
   $tab = "TOP - ";
-  $intro = "勉強のための読書を応援し、読みやすく身になる書籍を共有するサイト";
+  $intro = "読書を記録し、読みやすく身になる書籍を共有するサイトです";
 
   require("../../sec_info.php");
   require("../app/function.php");

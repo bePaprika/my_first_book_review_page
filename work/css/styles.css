@@ -1,12 +1,14 @@
 /* 上 右 下 左 */
 html{
   width: 850px;
-  box-shadow: 0 10px 20px #4d4150;
+  /* box-shadow: 0 10px 20px #4d4150; */
+  /* filter: drop-shadow(0 10px 20px #4d4150); */
   height: 100%; 
   margin: 0 auto;
   
   /* 背景装飾 */
   background-image: url("bgimage.jpg");
+  background-attachment: fixed;
   /* background-color: #fff;
 	background-image:
 	 linear-gradient(45deg, #B7CCCF 25%, transparent 25%,
@@ -21,7 +23,9 @@ html{
 
 body{
   font-family: Verdana, sans-serif;
+  filter: drop-shadow(0 10px 10px #4d4150);
   background-color: #fff;
+  height: 100%; 
   margin: 0;
   height: 100%;
   display: flex;
@@ -254,7 +258,7 @@ p{
   display: inline;
 }
 .fail{
-  color:#008A82ee;
+  color:#90972eee;
   display: inline;
 }
 

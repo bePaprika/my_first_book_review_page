@@ -52,12 +52,53 @@
 
 <h3>本の続きを記録する</h3>
 <!-- 最近読んだ本の書籍名を表示 -->
+<?php
+    // 重複を許さず最初の投稿を
+    $sql = 'SELECT * FROM Data WHERE post_id IN(SELECT MIN(post_id) FROM Data WHERE id = :id GROUP BY title)';
+    // $stmt = $pdo->query($sql);
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindParam(':id', $_SESSION["id"], PDO::PARAM_INT);
+    $stmt->execute();    
+    $results = $stmt->fetchAll();
+  ?>
+
 <ul class="book_list">
   <?php
     foreach ($results as $row){
       $title = $row['title'];
       $auther = $row['auther'];
-      echo '<li><a href="mybook.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).' ['.h($auther).']</a></li>'; 
+
+      $sql = 'SELECT * FROM Data WHERE id=:id AND title=:title AND auther=:auther AND first = 1';
+      // $stmt = $pdo->query($sql);
+      $stmt = $pdo->prepare($sql);
+      $stmt->bindParam(':id', $_SESSION["id"], PDO::PARAM_INT);
+      $stmt->bindParam(':title', $title, PDO::PARAM_STR);
+      $stmt->bindParam(':auther', $auther, PDO::PARAM_STR);
+      $stmt->execute();    
+      $results2 = $stmt->fetchAll();
+
+      foreach ($results2 as $row2){
+        //この本の期日を取得
+        $deadline = date_create($row2['deadline']);
+        $deadline = date_format($deadline, "m月d日");
+
+        //現時刻と期日のタイムスタンプを取得
+        $now = time();
+        $due = strtotime($row2['deadline']);
+
+        //残り日数を計算、文字列生成
+        if( $now < $due ) {
+          $time_left = $due - $now;
+          $days_left = floor( $time_left / 60 / 60 / 24 );
+          $day_info = '　期日： '.$deadline.' (後 '.$days_left.' 日)';
+        } 
+        else{
+          $day_info = '';
+        }
+        
+        
+      }
+      echo '<li><a href="mybook.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).' ['.h($auther).']</a>'.$day_info.'</li>'; 
     }
   ?>
 </ul>

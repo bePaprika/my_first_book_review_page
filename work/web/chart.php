@@ -14,8 +14,8 @@
 				#DA471Dee 0,
         #DA471Dee <?=$p2;?>%,
         /* 挫折 */
-				#008A82ee 0,
-				#008A82ee 100%
+				#90972eee 0,
+				#90972eee 100%
 		);
 		position: relative;
 		width: 300px;
@@ -55,6 +55,6 @@
 	<figcaption>
 		継続 <?=$n1;?><span style="color:#E1E2D6ee"></span><br>
 		読了 <?=$n2;?><span style="color:#DA471Dee"></span><br>
-		挫折 <?=$n3;?><span style="color:#008A82ee"></span>
+		挫折 <?=$n3;?><span style="color:#90972eee"></span>
 	</figcaption>
 </figure>
