@@ -18,6 +18,40 @@
 ?>
 <h2>ようこそ</h2>
 
+<!-- <h3>本を検索する</h3> -->
+
+<!-- 検索フォーム -->
+<form action="" method="post">
+  <input type="text" name="search" placeholder="タイトル" style="margin-left:35px;" >
+  <input type="submit" name="btn_search" class="btn_search" value="検索"><br>
+</form>
+<?php
+  //検索ボタンが押された時
+  if(isset($_POST['btn_search'])){
+    $search = $_POST['search'];
+    //データベースからタイトルに検索ワードが含まれる本を探す
+    $sql = 'SELECT * FROM Books WHERE title like ?';
+    // $stmt = $pdo->query($sql);
+    $stmt = $pdo->prepare($sql);
+    $stmt->bindValue(1, '%' .addcslashes($search, '\_%'). '%', PDO::PARAM_STR);
+    $stmt->execute();    
+    $results = $stmt->fetchAll();
+    echo "<p>検索ワード：".h($search)."</p>";
+?>
+<!-- 検索結果を表示 -->
+<ul class="book_list">
+<?php
+    if(empty($results)){echo "0件";}
+    foreach ($results as $row){
+      $title = $row['title'];
+      $auther = $row['auther'];
+      echo '<li><a href="book.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).' ['.h($auther).']</a></li>'; 
+    }
+  }
+?>
+</ul>
+
+
 <h3>新着レビュー</h3>
 
 <?php
@@ -52,38 +86,10 @@
   }
 ?>
 
-<h3>本を検索する</h3>
-
-<!-- 検索フォーム -->
-<form action="" method="post">
-  <input type="text" name="search" placeholder="タイトル" style="margin-left:35px;" >
-  <input type="submit" name="btn_search" class="btn_search" value="検索"><br>
-</form>
 
 
-<?php
-  //検索ボタンが押された時
-  if(isset($_POST['btn_search'])){
-    $search = $_POST['search'];
-    //データベースからタイトルに検索ワードが含まれる本を探す
-    $sql = 'SELECT * FROM Books WHERE title like ?';
-    // $stmt = $pdo->query($sql);
-    $stmt = $pdo->prepare($sql);
-    $stmt->bindValue(1, '%' .addcslashes($search, '\_%'). '%', PDO::PARAM_STR);
-    $stmt->execute();    
-    $results = $stmt->fetchAll();
-?>
-<!-- 検索結果を表示 -->
-<ul class="book_list">
-<?php
-    foreach ($results as $row){
-      $title = $row['title'];
-      $auther = $row['auther'];
-      echo '<li><a href="book.php?title='.h($title).'&auther='.h($auther).'" class="link1">'.h($title).' ['.h($auther).']</a></li>'; 
-    }
-  }
-?>
-</ul>
+
+
 
   
   
