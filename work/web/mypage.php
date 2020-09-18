@@ -15,6 +15,7 @@
   <div class="index">
     <h2>マイページ</h2>
     <p>こんにちは <?= h($_SESSION["name"]) ?> さん</p>
+    <br>
     <h3><a href="newpost.php" class="link3">新しい本を読み始める</a></h3>
   </div>
 
@@ -103,7 +104,7 @@
   ?>
 </ul>
 
-
+<br>
 <h3>あなたの最近の読書</h3>
 
 <?php

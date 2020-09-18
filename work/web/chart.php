@@ -18,7 +18,7 @@
 				#90972eee 100%
 		);
 		position: relative;
-		width: 300px;
+		width: 200px;
 		height: 150px;
 		margin: 15px 34px 0 auto;
     outline: 1px solid #CCB86C77;

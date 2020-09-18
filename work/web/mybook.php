@@ -86,7 +86,7 @@
 ?>
 
 <!-- 本のタイトルを表示 -->
-<h2> <?= h($_GET["title"]).' ['.h($_GET["auther"]).' 著]'; ?></h2>
+<h2> <?= h($_GET["title"]).' <br>['.h($_GET["auther"]).' 著]'; ?></h2>
 <?= '<p><a href="book.php?title='.h($_GET["title"]).'&auther='.h($_GET["auther"]).'" class="link2"> この本の掲示板へ </a></p>';?> 
 
 

@@ -84,7 +84,7 @@
 <div class="container">
   <div class="index">
     <!-- 本のタイトルを表示 -->
-    <h2><?= h($title)." [".h($auther)." 著]"; ?> </h2>
+    <h2><?= h($title)." <br>[".h($auther)." 著]"; ?> </h2>
 
     <!-- この本に対する皆のコメントを表示 -->
     <br>
