@@ -2,7 +2,7 @@
   //ok
   require("../app/function.php");
   $tab = "掲示板 ".h($_GET["title"])." - ";
-  $intro = "読書を記録し、読みやすく身になる書籍を共有するサイトです";
+  $intro = "一番下に投稿フォームもあるよ";
   $errors = array();
 
   require("../../sec_info.php");
