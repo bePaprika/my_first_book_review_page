@@ -96,8 +96,8 @@
     <laber>読書記録：<textarea name="comment" cols="60" rows="5"></textarea></laber>
     <br>
     <laber>読書状態：<input type="radio" name="status" value="0" checked>継続中</laber>
-    <laber>          <input type="radio" name="status" value="1"        >読了！</laber>
-    <laber>          <input type="radio" name="status" value="2"        >挫折..</laber>
+    <laber>          <input type="radio" name="status" value="1"        >役に立った！！</laber>
+    <laber>          <input type="radio" name="status" value="2"        >挫折・不満..</laber>
     <br>
     <laber>公開設定：<input type="radio" name="public" value="1" checked>公開する</laber>
     <laber>          <input type="radio" name="public" value="0"        >公開しない</laber>
@@ -129,8 +129,8 @@
       $date = date_create($row['post_at']);
       echo "<div class='small'>投稿日時：".date_format($date, 'Y/m/d　H:i:s');
       //読書の状態
-      if($row['fin']==1){echo "<div class='fin'>　読了　</div>";}
-      elseif($row['dis']==1){echo "<div class='fail'>　挫折　</div>";}
+      if($row['fin']==1){echo "<div class='fin'>　役に立った！　</div>";}
+      elseif($row['dis']==1){echo "<div class='fail'>　挫折・不満..　</div>";}
       echo "<br></div>";
       ?>
     </div>

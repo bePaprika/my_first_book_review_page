@@ -10,10 +10,10 @@
         /* 継続中 */
 				#E1E2D6ee 0,
         #E1E2D6ee <?=$p1;?>%,
-        /* 読了 */
+        /* 役に立った！ */
 				#DA471Dee 0,
         #DA471Dee <?=$p2;?>%,
-        /* 挫折 */
+        /* 挫折・不満.. */
 				#90972eee 0,
 				#90972eee 100%
 		);
@@ -54,7 +54,7 @@
 <figure class="pie-chart">
 	<figcaption>
 		継続 <?=$n1;?><span style="color:#E1E2D6ee"></span><br>
-		読了 <?=$n2;?><span style="color:#DA471Dee"></span><br>
-		挫折 <?=$n3;?><span style="color:#90972eee"></span>
+		役に立った！ <?=$n2;?><span style="color:#DA471Dee"></span><br>
+		挫折・不満.. <?=$n3;?><span style="color:#90972eee"></span>
 	</figcaption>
 </figure>

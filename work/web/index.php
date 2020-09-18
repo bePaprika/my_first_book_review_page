@@ -43,8 +43,8 @@
       $date = date_create($row['post_at']);
       echo "　　投稿日時：　".date_format($date, 'Y/m/d H:i:s');
       //読書の状態
-      if($row['fin']==1){echo "<div class='fin'>　読了　</div>";}
-      elseif($row['dis']==1){echo "<div class='fail'>　挫折　</div>";}
+      if($row['fin']==1){echo "<div class='fin'>　役に立った！　</div>";}
+      elseif($row['dis']==1){echo "<div class='fail'>　挫折・不満..　</div>";}
       echo '</div>';
       ?>
     </div>

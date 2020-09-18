@@ -33,8 +33,8 @@
   <?php
     //円グラフようの変数を作成
     $n1 = 0;  //継続
-    $n2 = 0;  //読了
-    $n3 = 0;  //挫折
+    $n2 = 0;  //役に立った！
+    $n3 = 0;  //挫折・不満..
     foreach ($results as $row){
       if($row['fin']==1){$n2++;}
       elseif($row['dis']==1){$n3++;}
@@ -131,8 +131,8 @@
       $date = date_create($row['post_at']);
       echo '<div class="small">投稿日時：'.date_format($date, "Y/m/d　H:i:s");
       //読書の状態
-      if($row['fin']==1){echo "<div class='fin'>　読了　</div>";}
-      elseif($row['dis']==1){echo "<div class='fail'>　挫折　</div>";}
+      if($row['fin']==1){echo "<div class='fin'>　役に立った！　</div>";}
+      elseif($row['dis']==1){echo "<div class='fail'>　挫折・不満..　</div>";}
       echo "<br></div>";
       ?>
     </div>
