@@ -14,7 +14,7 @@
 <?php
   // ログイン状態ならばマイページへとばす
   if (isset($_SESSION["id"])) {
-    header("Location: https://tb-220261.tech-base.net/TADABON/work/web/mypage.php");
+    header("Location: https://tb-220261.tech-base.net/ReadThrough/work/web/mypage.php");
     exit;
   }
 
@@ -50,7 +50,7 @@
         if (password_verify($pass, $result['pass'])) {    
           $_SESSION['id'] = $result["id"];
           $_SESSION['name'] = $result["name"];
-          header('Location: https://tb-220261.tech-base.net/TADABON/work/web/mypage.php');
+          header('Location: https://tb-220261.tech-base.net/ReadThrough/work/web/mypage.php');
           exit();
         } 
         else {

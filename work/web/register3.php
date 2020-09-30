@@ -15,7 +15,7 @@
 <?php
   //GETのない不正な繊維 
   if(empty($_GET)) {
-    header("Location: https://tb-220261.tech-base.net/TADABON/work/web/index.php");
+    header("Location: https://tb-220261.tech-base.net/ReadThrough/work/web/index.php");
     exit();
   }
   
@@ -112,7 +112,7 @@
 <!-- page_3 完了画面-->
 <?php if(isset($_POST['btn_submit']) && count($errors) === 0): ?>
   <h3>ReadTrough 登録ありがとうございます!</h3>
-  <!-- header('Location: https://tb-220261.tech-base.net/TADABON/work/web/register4.php'."?urltoken=".print $urltoken);  -->
+  <!-- header('Location: https://tb-220261.tech-base.net/ReadThrough/work/web/register4.php'."?urltoken=".print $urltoken);  -->
 
 <!-- page_2 確認画面-->
 <?php elseif (isset($_POST['btn_confirm']) && count($errors) === 0): ?>

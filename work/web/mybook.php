@@ -16,7 +16,7 @@
 <!-- 正しい遷移(title,autherが指定されている)か確認 -->
 <?php
   if(empty($_GET)) {
-    header("Location: https://tb-220261.tech-base.net/TADABON/work/web/mypage.php");
+    header("Location: https://tb-220261.tech-base.net/ReadThrough/work/web/mypage.php");
     exit();
   }
 
@@ -24,7 +24,7 @@
     //書籍名か著者名がない場合不正な遷移なのでマイページに飛ばす
     if ($_GET["title"] === "" || $_GET["auther"] === ""){
       $_SESSION['error'] = "該当する書籍は登録されていません";
-      header("Location: https://tb-220261.tech-base.net/TADABON/work/web/mypage.php");
+      header("Location: https://tb-220261.tech-base.net/ReadThrough/work/web/mypage.php");
       exit();
     }
   }

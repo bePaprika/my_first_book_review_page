@@ -20,7 +20,7 @@
     $mead = $_POST["mead"];
     
     //メアドが入力されていなかった場合には元のページへ戻す
-    if($mead === ""){header('Location: https://tb-220261.tech-base.net/TADABON/work/web/register.php');}
+    if($mead === ""){header('Location: https://tb-220261.tech-base.net/ReadThrough/work/web/register.php');}
 
     //メアドの形式をチェック
     if(!preg_match("/^([a-zA-Z0-9])+([a-zA-Z0-9\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\._-]+)+$/", $mead)){
@@ -72,7 +72,7 @@
   //POSTで遷移されていないので不正遷移とみなし、indexへ飛ばす
   else{
     $_SESSION['message'] = "不正な遷移が行われました";
-    header("Location: https://tb-220261.tech-base.net/TADABON/work/web/index.php");
+    header("Location: https://tb-220261.tech-base.net/ReadThrough/work/web/index.php");
   }
 ?>
 
