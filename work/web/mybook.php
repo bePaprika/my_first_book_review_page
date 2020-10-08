@@ -69,6 +69,7 @@
     
         $errors['posted'] = "「".h($_GET["title"])."」に読書記録を追加しました。";
         $_SESSION['token'] = "";
+        createToken(); 
       }
     }
     else{

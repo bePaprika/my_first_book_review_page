@@ -67,6 +67,7 @@
     
         $errors['posted'] = "「".h($title)."」にコメントを追加しました。";
         $_SESSION['token']= "";
+        createToken(); 
       }
     }
     else{
@@ -171,6 +172,7 @@ if (isset($_SESSION["id"])):
 
     <!-- この本を読み始めているならば POST送信 を表示 -->
     <?php if ($started === "1"):?>
+      <?= '<p><a href="mybook.php?title='.h($_GET["title"]).'&auther='.h($_GET["auther"]).'" class="link2"> 自分の読書記録ページへ </a></p>';?> 
       <h3>投稿フォーム</h3>
       <div class="box_form">
         <form action="" method="post">
